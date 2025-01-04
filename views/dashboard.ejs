@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-50 text-gray-900 transition-colors duration-300">
+
+<!-- Navbar -->
+<div class="bg-green-200 p-4 flex justify-between items-center shadow-md rounded-lg">
+    <div class="text-green-800 text-2xl font-semibold">SchemeConnect</div>
+    <div class="flex items-center space-x-4">
+        <img src="<%= 'https://via.placeholder.com/40' %>" alt="Profile Picture" class="w-10 h-10 rounded-full">
+        <span class="text-green-800 font-medium">Welcome, <%=user.emailId%></span>
+        <button id="themeToggler" class="text-green-800 text-xl bg-transparent border-0 hover:text-green-500 transition duration-200">
+            🌙
+        </button>
+    </div>
+</div>
+
+<!-- Container -->
+<div class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-8 space-y-8 sm:px-4 sm:mt-12">
+
+    <!-- Profile Details Section -->
+    <div id="profileSection">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Profile Details</h2>
+        <div class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="name" class="font-semibold text-gray-700 w-full sm:w-auto">Name:</label>
+                <input type="text" id="name" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="gender" class="font-semibold text-gray-700 w-full sm:w-auto">Gender:</label>
+                <input type="text" id="gender" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="dob" class="font-semibold text-gray-700 w-full sm:w-auto">DOB:</label>
+                <input type="date" id="dob" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="email" class="font-semibold text-gray-700 w-full sm:w-auto">Email:</label>
+                <input type="email" id="email" value="" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+        </div>
+        <div class="mt-6 flex space-x-4 justify-center sm:justify-start">
+            <button id="editBtn" class="px-6 py-2 bg-green-300 text-green-800 rounded-lg hover:bg-green-400 transition duration-200 transform hover:scale-105">Edit</button>
+        </div>
+    </div>
+
+    <!-- Language Preference Section -->
+    <div>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Language Preference</h2>
+        <select class="px-4 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            <option value="en" <%= user.language === 'en' ? 'selected' : '' %>>English</option>
+            <option value="hi" <%= user.language === 'hi' ? 'selected' : '' %>>Hindi</option>
+            <option value="te" <%= user.language === 'te' ? 'selected' : '' %>>Telugu</option>
+            <option value="od" <%= user.language === 'od' ? 'selected' : '' %>>Odia</option>
+            <option value="bn" <%= user.language === 'bn' ? 'selected' : '' %>>Bengali</option>
+        </select>
+    </div>
+
+    <!-- Chatbot Section -->
+    <div>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Chat with Us</h2>
+        <script src="https://app.chatbot.com/widget.js"></script>
+        <script>
+            new ChatBot({
+                organizationId: 'org12345',
+                template: 'default',
+                openOnLoad: false
+            });
+        </script>
+    </div>
+</div>
+
+<!-- Modal for editing profile -->
+<div id="editModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Edit Profile</h2>
+        <div class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editName" class="font-semibold text-gray-700 w-full sm:w-auto">Username:</label>
+                <input type="text" id="editUsername" value="<%= user.username %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editPassword" class="font-semibold text-gray-700 w-full sm:w-auto">Password:</label>
+                <input type="password" id="editPassword" value="<%= user.password %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editCaste" class="font-semibold text-gray-700 w-full sm:w-auto">Caste:</label>
+                <input type="text" id="editCaste" value="<%= user.caste %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editIncome" class="font-semibold text-gray-700 w-full sm:w-auto">Income:</label>
+                <input type="number" id="editIncome" value="<%= user.income %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editState" class="font-semibold text-gray-700 w-full sm:w-auto">State:</label>
+                <input type="text" id="editState" value="<%= user.state %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editGender" class="font-semibold text-gray-700 w-full sm:w-auto">Gender:</label>
+                <input type="text" id="editGender" value="<%= user.gender %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editEducation" class="font-semibold text-gray-700 w-full sm:w-auto">Education:</label>
+                <input type="text" id="editEducation" value="<%= user.education %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editOccupation" class="font-semibold text-gray-700 w-full sm:w-auto">Occupation:</label>
+                <input type="text" id="editOccupation" value="<%= user.occupation %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <label for="editBPL" class="font-semibold text-gray-700 w-full sm:w-auto">BPL:</label>
+                <input type="checkbox" id="editBPL" <%= user.bpl ? 'checked' : '' %> class="px-4 py-2 w-1/3 sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+            </div>
+        </div>
+        <div class="flex space-x-4 justify-center">
+            <button id="saveBtn" class="px-6 py-2 bg-green-300 text-green-800 rounded-lg hover:bg-green-400 transition duration-200 transform hover:scale-105">Save</button>
+            <button id="cancelBtn" class="px-6 py-2 bg-red-300 text-red-800 rounded-lg hover:bg-red-400 transition duration-200 transform hover:scale-105">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle edit button click
+    document.getElementById('editBtn').addEventListener('click', () => {
+        document.getElementById('profileSection').classList.add('hidden');
+        document.getElementById('editModal').classList.remove('hidden');
+    });
+
+    // Handle cancel button click in modal
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+        document.getElementById('editModal').classList.add('hidden');
+        document.getElementById('profileSection').classList.remove('hidden');
+    });
+
+    // Handle save button click in modal (you can later add functionality to save the changes)
+    document.getElementById('saveBtn').addEventListener('click', () => {
+        // Here, you can make an API call to save the data or update the user object
+        // For now, just hide the modal and show the updated profile details
+        const updatedUsername = document.getElementById('editUsername').value;
+        const updatedPassword = document.getElementById('editPassword').value;
+        const updatedCaste = document.getElementById('editCaste').value;
+        const updatedIncome = document.getElementById('editIncome').value;
+        const updatedState = document.getElementById('editState').value;
+        const updatedGender = document.getElementById('editGender').value;
+        const updatedEducation = document.getElementById('editEducation').value;
+        const updatedOccupation = document.getElementById('editOccupation').value;
+        const updatedBPL = document.getElementById('editBPL').checked;
+
+        // Update the profile section with the new values
+        document.getElementById('name').value = updatedUsername;
+        document.getElementById('gender').value = updatedGender;
+        document.getElementById('dob').value = document.getElementById('editDob').value;
+        document.getElementById('email').value = document.getElementById('editEmail').value;
+
+        document.getElementById('editModal').classList.add('hidden');
+        document.getElementById('profileSection').classList.remove('hidden');
+    });
+</script>
+
+</body>
+</html>

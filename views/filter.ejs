@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyScheme API Search</title>
+    <link rel="stylesheet" href="/stylesheets/filters.css">
+</head>
+<body>
+<div class="form-container">
+    <form id="schemeForm">
+        <div class="form-group">
+            <label for="disabilityPercentage">Disability Percentage</label>
+            <select id="disabilityPercentage">
+                <option value="fghytrdfghj">N/A</option>
+                <% for(let i = 10; i <= 100; i += 10) { %>
+                    <option value="<%= i %>"><%= i %>%</option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="maritalStatus">Marital Status</label>
+            <select id="maritalStatus" name="maritalStatus">
+                <option value="">Select Marital Status</option>
+                <% const maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                <% maritalStatuses.forEach(status => { %>
+                    <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="disability">Disability</label>
+            <select id="disability" name="disability">
+                <option value="Yes" selected>Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="caste">Caste</label>
+            <select id="caste">
+                <option value="">Select Caste</option>
+                <% const castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)',
+                    'Other Backward Class (OBC)', 'General',
+                    'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                <% castes.forEach(caste => { %>
+                    <option value="<%= caste %>"><%= caste %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+                <option value="">Select Gender</option>
+                <% const genders = ['All', 'Male', 'Female', 'Other']; %>
+                <% genders.forEach(gender => { %>
+                    <option value="<%= gender %>"><%= gender %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="beneficiaryState">Beneficiary State</label>
+            <select id="beneficiaryState" name="beneficiaryState">
+                <option value="All">All</option>
+                <% states.forEach(state => { %>
+                    <option value="<%= state %>"><%= state %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <select id="occupation">
+                <option value="gnhm">Select Occupation</option>
+                <% occupations.forEach(occupation => { %>
+                    <option value="<%= occupation.value %>"><%= occupation.label %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age</label>
+            <select id="age">
+                <option value="">Select Age Range</option>
+                <% for(let i = 0; i <= 100; i += 10) { %>
+                    <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bpl">Below Poverty Line</label>
+            <select id="bpl">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<div id="detailModal" style="display:none;">
+    <div id="modalContent">
+        <span id="closeModal" style="cursor:pointer;">&times; Close</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<div class="results-container" id="results">
+    <h2>Search Results</h2>
+    <ul id="resultsList">
+        <!-- Results will be appended here -->
+    </ul>
+</div>
+
+<script src="/javascripts/search.js"></script>
+</body>
+</html>

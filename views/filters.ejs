@@ -1,0 +1,828 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>MyScheme API Search</title>-->
+<!--    <link rel="stylesheet" href="/public/stylesheets/filters.css">-->
+<!--    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>-->
+<!--    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>-->
+<!--    <style>-->
+<!--        /*body {*/-->
+<!--        /*    font-family: Arial, sans-serif;*/-->
+<!--        /*    margin: 0;*/-->
+<!--        /*    display: flex;*/-->
+<!--        /*    justify-content: space-between;*/-->
+<!--        /*    padding: 20px;*/-->
+<!--        /*}*/-->
+
+<!--        /*h1 {*/-->
+<!--        /*    width: 100%;*/-->
+<!--        /*    text-align: center;*/-->
+<!--        /*}*/-->
+
+<!--        /*.form-container {*/-->
+<!--        /*    width: 25%;*/-->
+<!--        /*    padding: 20px;*/-->
+<!--        /*    box-sizing: border-box;*/-->
+<!--        /*    position: static;*/-->
+<!--        /*}*/-->
+
+<!--        /*.results-container {*/-->
+<!--        /*    width: 70%;*/-->
+<!--        /*    padding: 20px;*/-->
+<!--        /*    box-sizing: border-box;*/-->
+<!--        /*    position: static;*/-->
+<!--        /*}*/-->
+
+<!--        /*.form-container {*/-->
+<!--        /*    border-right: 2px solid #ccc;*/-->
+<!--        /*}*/-->
+
+<!--        /*.form-group {*/-->
+<!--        /*    margin-bottom: 15px;*/-->
+<!--        /*}*/-->
+
+<!--        /*label {*/-->
+<!--        /*    display: block;*/-->
+<!--        /*    font-weight: bold;*/-->
+<!--        /*    margin-bottom: 5px;*/-->
+<!--        /*}*/-->
+
+<!--        /*select {*/-->
+<!--        /*    width: 100%;*/-->
+<!--        /*    padding: 8px;*/-->
+<!--        /*    font-size: 16px;*/-->
+<!--        /*    border-radius: 4px;*/-->
+<!--        /*    border: 1px solid #ddd;*/-->
+<!--        /*}*/-->
+
+<!--        /*button {*/-->
+<!--        /*    padding: 10px 15px;*/-->
+<!--        /*    background-color: #0e9928b3;*/-->
+<!--        /*    color: white;*/-->
+<!--        /*    border: none;*/-->
+<!--        /*    border-radius: 4px;*/-->
+<!--        /*    cursor: pointer;*/-->
+<!--        /*}*/-->
+
+<!--        /*button:hover {*/-->
+<!--        /*    background-color: #02891b50;*/-->
+<!--        /*}*/-->
+
+<!--        /*#results h2 {*/-->
+<!--        /*    margin-top: 0;*/-->
+<!--        /*}*/-->
+
+<!--        /*#resultsList {*/-->
+<!--        /*    list-style: none;*/-->
+<!--        /*    padding: 0;*/-->
+<!--        /*}*/-->
+
+<!--        /*#resultsList li {*/-->
+<!--        /*    background-color: #f4f4f4;*/-->
+<!--        /*    padding: 10px;*/-->
+<!--        /*    margin: 5px 0;*/-->
+<!--        /*    border-radius: 4px;*/-->
+<!--        /*}*/-->
+
+<!--        /*#detailModal {*/-->
+<!--        /*    position: fixed;*/-->
+<!--        /*    top: 0;*/-->
+<!--        /*    left: 0;*/-->
+<!--        /*    width: 100%;*/-->
+<!--        /*    height: 100%;*/-->
+<!--        /*    background-color: rgba(0, 0, 0, 0.7);*/-->
+<!--        /*    display: none;*/-->
+<!--        /*    justify-content: center;*/-->
+<!--        /*    align-items: center;*/-->
+<!--        /*    z-index: 1000;*/-->
+<!--        /*}*/-->
+
+<!--        /*#modalContent {*/-->
+<!--        /*    background-color: white;*/-->
+<!--        /*    padding: 20px;*/-->
+<!--        /*    width: 80%;*/-->
+<!--        /*    max-height: 80%;*/-->
+<!--        /*    overflow-y: auto;*/-->
+<!--        /*}*/-->
+
+<!--        /*#closeModal {*/-->
+<!--        /*    font-size: 20px;*/-->
+<!--        /*    color: red;*/-->
+<!--        /*    position: absolute;*/-->
+<!--        /*    top: 10px;*/-->
+<!--        /*    right: 10px;*/-->
+<!--        /*}*/-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body class="bg-white border-gray-200 dark:bg-gray-900">-->
+<!--<nav class="bg-white border-gray-200 dark:bg-gray-900">-->
+<!--    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">-->
+<!--        &lt;!&ndash; Logo &ndash;&gt;-->
+<!--        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">-->
+<!--            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Logo">-->
+<!--            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>-->
+<!--        </a>-->
+
+<!--        &lt;!&ndash; Mobile Menu Button &ndash;&gt;-->
+<!--        <button data-collapse-toggle="navbar-default" type="button"-->
+<!--                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"-->
+<!--                aria-controls="navbar-default" aria-expanded="false">-->
+<!--            <span class="sr-only">Open menu</span>-->
+<!--            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">-->
+<!--                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
+<!--                      d="M1 1h15M1 7h15M1 13h15"/>-->
+<!--            </svg>-->
+<!--        </button>-->
+
+<!--        &lt;!&ndash; Menu Items &ndash;&gt;-->
+<!--        <div class="hidden w-full md:block md:w-auto" id="navbar-default">-->
+<!--            <ul class="flex items-center space-x-4 font-medium flex-wrap">-->
+<!--                <li>-->
+<!--                    <a href="#about"-->
+<!--                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">-->
+<!--                        About-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#features"-->
+<!--                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">-->
+<!--                        Features-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <form>-->
+<!--                        <select id="languages"-->
+<!--                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">-->
+<!--                            <option value="en">English</option>-->
+<!--                            <option value="hi">Hindi</option>-->
+<!--                            <option value="bn">Bengali</option>-->
+<!--                            &lt;!&ndash; Add more languages here &ndash;&gt;-->
+<!--                        </select>-->
+<!--                    </form>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#contactus"-->
+<!--                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">-->
+<!--                        Contact-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash; Profile Dropdown &ndash;&gt;-->
+<!--                <li class="relative">-->
+<!--                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"-->
+<!--                         class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">-->
+<!--                    &lt;!&ndash; Dropdown &ndash;&gt;-->
+<!--                    <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">-->
+<!--                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">-->
+<!--                            <div>Bonnie Green</div>-->
+<!--                            <div class="font-medium truncate">name@flowbite.com</div>-->
+<!--                        </div>-->
+<!--                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">-->
+<!--                            <li>-->
+<!--                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer" type="button">-->
+<!--                                    Delete Account-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        <div class="py-1">-->
+<!--                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<!--&lt;!&ndash;<div class="form-container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <form id="schemeForm">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="disabilityPercentage">Disability Percentage</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="disabilityPercentage">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="fghytrdfghj">N/A</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="10">10%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="20">20%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="30">30%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="40">40%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="50">50%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="60">60%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="70">70%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="80">80%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="90">90%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="100">100%</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="maritalStatus">Marital Status</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="maritalStatus" name="maritalStatus">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">Select Marital Status</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="All">All</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Widowed">Widowed</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Married">Married</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Never Married">Never Married</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Divorced">Divorced</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Separated">Separated</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="disability">Disability</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="disability" name="disability">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Yes" selected>Yes</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="No">No</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="caste">Caste</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="caste">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">Select Caste</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="All">All</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Scheduled Caste (SC)">Scheduled Caste (SC)</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Scheduled Tribe (ST)">Scheduled Tribe (ST)</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Other Backward Class (OBC)">Other Backward Class (OBC)</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="General">General</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Particularly Vulnerable Tribal Group (PVTG)">Particularly Vulnerable Tribal Group&ndash;&gt;-->
+<!--&lt;!&ndash;                    (PVTG)&ndash;&gt;-->
+<!--&lt;!&ndash;                </option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="gender">Gender</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="gender" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">Select Gender</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="All">All</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Male">Male</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Female">Female</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Other">Other</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="beneficiaryState">Beneficiary State</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="beneficiaryState" name="beneficiaryState">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="All">All</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Andhra Pradesh">Andhra Pradesh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Arunachal Pradesh">Arunachal Pradesh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Assam">Assam</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Bihar">Bihar</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Chhattisgarh">Chhattisgarh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Goa">Goa</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Gujarat">Gujarat</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Haryana">Haryana</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Himachal Pradesh">Himachal Pradesh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Jharkhand">Jharkhand</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Karnataka">Karnataka</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Kerala">Kerala</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Madhya Pradesh">Madhya Pradesh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Maharashtra">Maharashtra</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Manipur">Manipur</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Meghalaya">Meghalaya</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Mizoram">Mizoram</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Nagaland">Nagaland</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Odisha">Odisha</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Punjab">Punjab</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Rajasthan">Rajasthan</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Sikkim">Sikkim</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Tamil Nadu">Tamil Nadu</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Telangana">Telangana</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Tripura">Tripura</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Uttar Pradesh">Uttar Pradesh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Uttarakhand">Uttarakhand</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="West Bengal">West Bengal</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Chandigarh">Chandigarh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu&ndash;&gt;-->
+<!--&lt;!&ndash;                </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Delhi">Delhi</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Jammu and Kashmir">Jammu and Kashmir</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Ladakh">Ladakh</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Lakshadweep">Lakshadweep</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Puducherry">Puducherry</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="occupation">Occupation</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="occupation">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="gnhm">Select Occupation</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Al">Not Listed here</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="All">All</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Construction Worker">Construction Worker</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Unorganized Worker">Unorganized Worker</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Ex Servicemen">Ex Servicemen</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Student">Student</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Artists">Artists</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Safai Karamchari">Safai Karamchari</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Sportsperson">Sportsperson</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Coir Worker">Coir Worker</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Teacher / Faculty">Teacher / Faculty</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Health Worker">Health Worker</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Khadi Artisan">Khadi Artisan</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Street Vendor">Street Vendor</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Fishermen">Fishermen</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Artisans, Spinners & Weavers">Artisans, Spinners & Weavers</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Farmer">Farmer</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Organized Worker">Organized Worker</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="age">Age</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="age" onchange="fetchData()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="">Select Age Range</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="0-10">0-10</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="11-20">11-20</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="21-30">21-30</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="31-40">31-40</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="41-50">41-50</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="51-60">51-60</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="61-70">61-70</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="71-80">71-80</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="81-90">81-90</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="91-100">91-100</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="101-110">101-110</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;            <label for="bpl">Below Poverty Line</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select id="bpl">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="No">No</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                <option value="Yes">Yes</option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div id="detailModal" style="display:none;">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div id="modalContent">&ndash;&gt;-->
+<!--&lt;!&ndash;        <span id="closeModal" style="cursor:pointer;">&times; Close</span>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div id="modalBody"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="results-container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div id="results">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Search Results</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;        <ul id="resultsList"></ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<script src="/javascripts/filters.js" defer></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Navbar with Dynamic Translation</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>
+    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
+    <link href="/stylesheets/landingpage.css" rel = "stylesheet">
+    <script src="/javascripts/landingpage.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileButton = document.getElementById("avatarButton");
+            const profileDropdown = document.getElementById("userDropdown");
+            const closeProfile = document.getElementById("close-profile");
+            // Toggle profile dropdown visibility
+            profileButton.addEventListener("click", () => {
+                profileDropdown.classList.toggle("hidden");
+            });
+            // Close profile dropdown
+            closeProfile.addEventListener("click", () => {
+                profileDropdown.classList.add("hidden");
+            });
+
+        });
+
+        document.getElementById('avatarButton').addEventListener('click', () => {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+    <style>
+        #userDropdown {
+            z-index: 50;
+            position: absolute;
+            right: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900">
+<!-- Navbar -->
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Logo">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+
+        <!-- Menu Items -->
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="flex items-center space-x-4 font-medium flex-wrap">
+                <li>
+                    <form>
+                        <select id="languages"
+                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="bn">Bengali</option>
+                            <!-- Add more languages here -->
+                        </select>
+                    </form>
+                </li>
+                <!-- Profile Dropdown -->
+                <li class="relative">
+                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                         class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
+                    <!-- Dropdown -->
+                    <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div>Bonnie Green</div>
+                            <div class="font-medium truncate">name@flowbite.com</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                            <li>
+                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer" type="button">
+                                    Delete Account
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Confirmation Modal -->
+<div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div class="relative p-4 w-full max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal content -->
+        <div class="relative">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Static modal
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center">
+                    Do you want to delete the account?
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center gap-5">
+                <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Container -->
+<div class="min-h-screen flex justify-start p-6 gap-6">
+
+    <!-- Left side filter container -->
+    <div class="w-full sm:w-1/3 lg:w-1/4 bg-white shadow-lg rounded-lg p-6 space-y-6">
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-700">Filter Options</h2>
+
+        <form id="filterForm">
+            <!-- Disability Percentage -->
+            <div class="form-group">
+                <label for="disabilityPercentage" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Disability Percentage</label>
+                <select id="disabilityPercentage" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="fghytrdfghj">N/A</option>
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80">80%</option>
+                    <option value="90">90%</option>
+                    <option value="100">100%</option>
+                </select>
+            </div>
+
+            <!-- Marital Status -->
+            <div class="form-group">
+                <label for="maritalStatus" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Marital Status</label>
+                <select id="maritalStatus" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Select Marital Status</option>
+                    <option value="All">All</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Married">Married</option>
+                    <option value="Never Married">Never Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Separated">Separated</option>
+                </select>
+            </div>
+
+            <!-- Disability -->
+            <div class="form-group">
+                <label for="disability" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Disability</label>
+                <select id="disability" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="Yes" selected>Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <!-- Caste -->
+            <div class="form-group">
+                <label for="caste" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Caste</label>
+                <select id="caste" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Select Caste</option>
+                    <option value="All">All</option>
+                    <option value="Scheduled Caste (SC)">Scheduled Caste (SC)</option>
+                    <option value="Scheduled Tribe (ST)">Scheduled Tribe (ST)</option>
+                    <option value="Other Backward Class (OBC)">Other Backward Class (OBC)</option>
+                    <option value="General">General</option>
+                    <option value="Particularly Vulnerable Tribal Group (PVTG)">PVTG</option>
+                </select>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="gender" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Gender</label>
+                <select id="gender" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Select Gender</option>
+                    <option value="All">All</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- State -->
+            <div class="form-group">
+                <label for="state" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">State</label>
+                <select id="state" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+            </div>
+
+            <!-- Occupation -->
+            <div class="form-group">
+                <label for="occupation" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Occupation</label>
+                <select id="occupation" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="gnhm">Select Occupation</option>
+                    <option value="Not Listed here">Not Listed here</option>
+                    <option value="Construction Worker">Construction Worker</option>
+                    <option value="Unorganized Worker">Unorganized Worker</option>
+                    <option value="Ex Servicemen">Ex Servicemen</option>
+                    <option value="Student">Student</option>
+                    <option value="Artists">Artists</option>
+                    <option value="Safai Karamchari">Safai Karamchari</option>
+                    <option value="Sportsperson">Sportsperson</option>
+                    <option value="Coir Worker">Coir Worker</option>
+                    <option value="Teacher / Faculty">Teacher / Faculty</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-4">
+                <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px space-x-4">
+            <li class="flex-1">
+                <a href="#profile" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="profile-tab">
+                    Profile
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#dashboard" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 transition-all duration-300" id="dashboard-tab" aria-current="page">
+                    Dashboard
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#settings" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="settings-tab">
+                    Settings
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#contacts" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="contacts-tab">
+                    Contacts
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Content with Form -->
+    <div id="tabs-content" class="mt-4">
+        <!-- Profile Tab Content with Form -->
+        <div id="profile-content" class="tab-content hidden">
+            <h2 class="text-xl font-semibold mb-4">Profile Information</h2>
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700">Full Name</label>
+                    <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your full name">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your email">
+                </div>
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-700">Phone</label>
+                    <input type="text" id="phone" name="phone" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your phone number">
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Submit</button>
+            </form>
+        </div>
+
+        <!-- Dashboard Tab Content with Form -->
+
+        <!-- Settings Tab Content with Form -->
+        <div id="settings-content" class="tab-content hidden">
+            <h2 class="text-xl font-semibold mb-4">Settings</h2>
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="theme" class="block text-gray-700">Select Theme</label>
+                    <select id="theme" name="theme" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="language" class="block text-gray-700">Select Language</label>
+                    <select id="language" name="language" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <option value="english">English</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="french">French</option>
+                    </select>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Settings</button>
+            </form>
+        </div>
+
+        <!-- Contacts Tab Content with Form -->
+        <div id="contacts-content" class="tab-content hidden">
+            <h2 class="text-xl font-semibold mb-4">Contacts</h2>
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="contact-name" class="block text-gray-700">Contact Name</label>
+                    <input type="text" id="contact-name" name="contact-name" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact name">
+                </div>
+                <div class="mb-4">
+                    <label for="contact-email" class="block text-gray-700">Contact Email</label>
+                    <input type="email" id="contact-email" name="contact-email" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact email">
+                </div>
+                <div class="mb-4">
+                    <label for="contact-phone" class="block text-gray-700">Contact Phone</label>
+                    <input type="text" id="contact-phone" name="contact-phone" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact phone number">
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Add Contact</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<section>
+    <div class="fixed bottom-4 right-4 z-50">
+        <!-- Chatbot Button -->
+        <button id="chatbot-button"
+                class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            💬
+        </button>
+        <!-- Chatbot Popup -->
+        <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chatbot</h2>
+                <button id="close-chatbot"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                    ✖
+                </button>
+            </div>
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3">
+                <!-- Chat Messages -->
+                <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline">
+                    Hi! How can I help you today?
+                </div>
+            </div>
+            <form id="chatbot-form" class="flex mt-4">
+                <input type="text" id="chatbot-input" placeholder="Type a message..."
+                       class="w-full px-4 py-2 text-sm border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Send
+                </button>
+            </form>
+            <footer class="bg-gray-500 rounded-lg shadow mt-4 dark:bg-gray-800">
+                <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="text-sm text-white">
+                        Powered by <a href="#" class="hover:underline text-blue-300">Blixtra AI</a>
+                        <br>© 2025. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

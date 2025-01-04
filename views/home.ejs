@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Navbar with Dynamic Translation</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>
+    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
+    <link href="/stylesheets/landingpage.css" rel = "stylesheet">
+    <script src="/javascripts/landingpage.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background-color: var(--background-color);
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-footer {
+            text-align: right;
+        }
+
+        .btn-learn-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-learn-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileButton = document.getElementById("avatarButton");
+            const profileDropdown = document.getElementById("userDropdown");
+            const closeProfile = document.getElementById("close-profile");
+            // Toggle profile dropdown visibility
+            profileButton.addEventListener("click", () => {
+                profileDropdown.classList.toggle("hidden");
+            });
+            // Close profile dropdown
+            closeProfile.addEventListener("click", () => {
+                profileDropdown.classList.add("hidden");
+            });
+
+        });
+
+        document.getElementById('avatarButton').addEventListener('click', () => {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+    <style>
+        #userDropdown {
+            z-index: 50;
+            position: absolute;
+            right: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900">
+<!-- Navbar -->
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Logo">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+
+        <!-- Menu Items -->
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="flex items-center space-x-4 font-medium flex-wrap">
+                <li>
+                    <a href="#about"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="#features"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                        Features
+                    </a>
+                </li>
+                <li>
+                    <form>
+                        <select id="languages"
+                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="bn">Bengali</option>
+                            <!-- Add more languages here -->
+                        </select>
+                    </form>
+                </li>
+                <li>
+                    <a href="#contactus"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        Contact
+                    </a>
+                </li>
+                <!-- Profile Dropdown -->
+                <li class="relative">
+                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                         class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
+                    <!-- Dropdown -->
+                    <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+<!--                            <div></div>-->
+                            <div class="font-medium truncate"><%=email%></div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                            <li>
+                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer" type="button">
+                                    Delete Account
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Confirmation Modal -->
+<div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div class="relative p-4 w-full max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal content -->
+        <div class="relative">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Static modal
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center">
+                    Do you want to delete the account?
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center gap-5">
+                <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Headline -->
+<section id="about">
+    <div class="md:container md:mx-auto text-center py-12">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 dark:text-white translation">
+            Empower Your Journey: Blixtra - Your One-Stop Solution for All Schemes!
+        </h1>
+    </div>
+    <!-- CTA Button -->
+    <div class="text-center mb-8">
+        <button type="button"
+                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-lg px-6 py-3 rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            Schemes for You
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor"
+                 class="inline-block w-5 h-5 ml-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+            </svg>
+        </button>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4" style="text-align: center">
+        <a href="#"
+           class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">2910+</p>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Total schemes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="inline-block w-5 h-5 ml-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+                </svg>
+            </p>
+        </a>
+
+        <a href="#"
+           class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">520+</p>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Central schemes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="inline-block w-5 h-5 ml-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+                </svg>
+            </p>
+        </a>
+
+        <a href="#"
+           class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">2370+</p>
+            <p class="font-normal text-gray-700 dark:text-gray-400">State schemes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="inline-block w-5 h-5 ml-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+                </svg>
+            </p>
+        </a>
+    </div>
+</section>
+
+<section id='features'>
+    <center><p class="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center">Features</p></center>
+    <section class="features-container" id="features-container">
+        <!-- Feature cards will be dynamically inserted here -->
+        <div class="feature-card">
+            <div class="feature-icon">💡</div>
+            <div class="feature-title">Personalized Scheme Recommendations</div>
+            <div class="feature-description">Get recommendations tailored to your unique needs based on your profile and
+                eligibility.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <div class="feature-title">Multilingual Support</div>
+            <div class="feature-description">Access the platform in your preferred language to better understand and
+                apply for schemes.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📄</div>
+            <div class="feature-title">Easy Document Upload</div>
+            <div class="feature-description">Upload required documents quickly and securely to ensure smooth processing
+                of your application.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <div class="feature-title">Real-time Updates</div>
+            <div class="feature-description">Receive real-time updates on the status of your applications, making it
+                easier to track progress.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-title">Chatbot Assistance</div>
+            <div class="feature-description">Get instant help and guidance through our AI-powered chatbot, ready to
+                answer your questions anytime.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-title">Comprehensive Filters</div>
+            <div class="feature-description">Use a variety of filters to narrow down your search and find schemes that
+                suit your needs best.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🖥️</div>
+            <div class="feature-title">User-Friendly Interface</div>
+            <div class="feature-description">Navigate the platform easily with a clean and intuitive interface designed
+                for a seamless user experience.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Secure and Private</div>
+            <div class="feature-description">Your personal and application data is kept safe with strong encryption and
+                privacy policies.
+            </div>
+            <div class="feature-footer">
+                <a href="#" class="btn-learn-more">Learn More</a>
+            </div>
+        </div>
+    </section>
+</section>
+
+<section id="contactus" class="bg-gray-100 p-8 rounded-lg shadow-lg dark:bg-gray-800">
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white text-center mb-6">Contact Us</h2>
+    <form action="#" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-gray-700">
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Your Name</label>
+            <input type="text" id="name" name="name" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your name" required />
+        </div>
+        <div class="mb-4">
+            <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email Address</label>
+            <input type="email" id="email" name="email" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your email" required />
+        </div>
+        <div class="mb-4">
+            <label for="message" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Your Message</label>
+            <textarea id="message" name="message" rows="4" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your message" required></textarea>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">Submit</button>
+    </form>
+</section>
+<section>
+    <div class="fixed bottom-4 right-4 z-50">
+        <!-- Chatbot Button -->
+        <button id="chatbot-button"
+                class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            💬
+        </button>
+        <!-- Chatbot Popup -->
+        <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chatbot</h2>
+                <button id="close-chatbot"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                    ✖
+                </button>
+            </div>
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3">
+                <!-- Chat Messages -->
+                <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline">
+                    Hi! How can I help you today?
+                </div>
+            </div>
+            <form id="chatbot-form" class="flex mt-4">
+                <input type="text" id="chatbot-input" placeholder="Type a message..."
+                       class="w-full px-4 py-2 text-sm border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Send
+                </button>
+            </form>
+            <footer class="bg-gray-500 rounded-lg shadow mt-4 dark:bg-gray-800">
+                <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="text-sm text-white">
+                        Powered by <a href="#" class="hover:underline text-blue-300">Blixtra AI</a>
+                        <br>© 2025. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

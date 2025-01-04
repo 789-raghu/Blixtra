@@ -1,0 +1,22 @@
+
+.fixed {
+    position: fixed;
+}
+
+.bottom-4 {
+    bottom: 1rem; /* Adjusts the position 1rem from the bottom */
+}
+
+.right-4 {
+    right: 1rem; /* Adjusts the position 1rem from the right */
+}
+
+#chatbot-popup {
+    position: absolute;
+    bottom: 4rem; /* Adjust this to ensure it opens above the button */
+    right: 0; /* Aligns it with the button */
+    z-index: 999; /* Keeps it above other elements */
+    width: 20rem;
+}
+
+    
