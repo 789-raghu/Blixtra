@@ -1,18 +1,163 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-    <style>
-        .chatbot-logo{
-            width:5%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Modal with Navbar and Footer</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class = "chatbot">
-    <img src = '../public/images/new%20logo.png' alt = 'chatbot' class = 'chatbot-logo'>
-</div>
+<body class="flex flex-col min-h-screen bg-gray-200">
+
+<!-- Navbar -->
+<nav class="bg-gray-200 text-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="text-xl font-bold hover:text-gray-600">MyApp</a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-gray-600">Home</a>
+                <a href="#" class="hover:text-gray-600">About</a>
+                <a href="#" class="hover:text-gray-600">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-800 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center py-8">
+    <!-- Modal -->
+    <div class="fixed inset-0 bg-gray-50 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center" aria-modal="true" role="dialog" id="userProfileModal">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+            <div class="flex items-start mb-6">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="John Doe" class="w-24 h-24 rounded-full border-4 border-gray-200 hover:border-gray-300 transition-all duration-300">
+                <div class="ml-4">
+                    <h2 class="text-2xl font-bold text-gray-800">John Doe</h2>
+                    <p class="text-gray-600 mt-1">Passionate developer and tech enthusiast</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex border-b border-gray-300">
+                    <button class="py-2 px-4 border-b-2 border-gray-500 text-gray-700" id="contactTab">Contact Info</button>
+                    <button class="py-2 px-4 text-gray-500" id="settingsTab">Settings</button>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-4" id="contactContent">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-envelope mr-2"></i>Email
+                    </label>
+                    <input
+                            type="email"
+                            id="email"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-400 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
+                            placeholder="Enter your email"
+                    >
+                    <p class="mt-1 text-sm text-red-600 hidden" id="emailError">Please enter a valid email address.</p>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-phone mr-2"></i>Phone
+                    </label>
+                    <input
+                            type="tel"
+                            id="phone"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-400 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
+                            placeholder="Enter your phone number"
+                    >
+                    <p class="mt-1 text-sm text-red-600 hidden" id="phoneError">Please enter a valid phone number.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-gray-600">
+                        <i class="fab fa-twitter mr-1"></i> Twitter
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-600">
+                        <i class="fab fa-facebook mr-1"></i> Facebook
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-600">
+                        <i class="fab fa-linkedin mr-1"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="space-y-4 hidden" id="settingsContent">
+                <div class="border-b pb-4">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Notification Preferences</h3>
+                    <label class="inline-flex items-center">
+                        <input
+                                type="checkbox"
+                                id="notificationPreference"
+                                class="rounded border-gray-300 text-gray-600 shadow-sm focus:border-gray-400 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
+                        >
+                        <span class="ml-2 text-gray-700">Receive email notifications</span>
+                    </label>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Account Security</h3>
+                    <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        <i class="fas fa-cog mr-2"></i>Change Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-300 text-gray-800 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
+        <p>&copy; 2025 MyApp. All Rights Reserved.</p>
+        <div class="space-x-4">
+            <a href="#" class="hover:text-gray-600">Privacy Policy</a>
+            <a href="#" class="hover:text-gray-600">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const emailError = document.getElementById('emailError');
+    const phoneError = document.getElementById('phoneError');
+    const contactTab = document.getElementById('contactTab');
+    const settingsTab = document.getElementById('settingsTab');
+    const contactContent = document.getElementById('contactContent');
+    const settingsContent = document.getElementById('settingsContent');
+
+    const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+    const validatePhone = (phone) => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone);
+
+    emailInput.addEventListener('input', () => {
+        emailError.classList.toggle('hidden', validateEmail(emailInput.value));
+    });
+
+    phoneInput.addEventListener('input', () => {
+        phoneError.classList.toggle('hidden', validatePhone(phoneInput.value));
+    });
+
+    contactTab.addEventListener('click', () => {
+        contactContent.classList.remove('hidden');
+        settingsContent.classList.add('hidden');
+        contactTab.classList.add('border-b-2', 'border-gray-500', 'text-gray-700');
+        settingsTab.classList.remove('border-b-2', 'border-gray-500', 'text-gray-700');
+    });
+
+    settingsTab.addEventListener('click', () => {
+        settingsContent.classList.remove('hidden');
+        contactContent.classList.add('hidden');
+        settingsTab.classList.add('border-b-2', 'border-gray-500', 'text-gray-700');
+        contactTab.classList.remove('border-b-2', 'border-gray-500', 'text-gray-700');
+    });
+</script>
 </body>
 </html>

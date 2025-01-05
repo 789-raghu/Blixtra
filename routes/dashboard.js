@@ -7,13 +7,12 @@ router.get('/', async function (req, res) {
         try {
             // Retrieve email from the session object
             const email = req.session.user.email;
-
+            console.log("email", email);
             // Find the user in the database using the email
             const user = await usermodel.findOne({ emailId: email });
-
             if (user) {
                 // Render the dashboard with user information
-                res.render('dashboard', { title: 'Dashboard', user: user.emailId });
+                res.render('dashboard', { title: 'Dashboard', user: email });
             } else {
                 // If the user is not found in the database, handle appropriately
                 res.redirect('/login');

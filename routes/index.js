@@ -6,10 +6,8 @@ router.get('/', async (req, res) => {
   if (req.session.user) {
     const email = req.session.user.email;
     const user = await usermodel.findOne({ emailId: email});
-    return res.render('home', { user: user});
+    return res.render('home', { email: req.session.user.email });
   }
-
-  // If no user in session, render landing page
   res.render('landingpage', { title: 'Login' });
 });
 
