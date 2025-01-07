@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 0;
-    const pageSize = 100;
+    const pageSize = 10;
     let currentResults = null;
     let totalPages = 0;
 
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const queryParamsString = JSON.stringify(queryParams);
         const baseUrl = "https://api.myscheme.gov.in/search/v4/schemes";
         const from = page * pageSize;
-        const url = `${baseUrl}?lang=en&q=${encodeURIComponent(queryParamsString)}&keyword=&sort=&from=${from}&size=100`;
+        const url = `${baseUrl}?lang=en&q=${encodeURIComponent(queryParamsString)}&keyword=&sort=&from=${from}&size=5`;
 
         const headers = {
             "Accept": "application/json",
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to render results
     function renderResults(data) {
+        console.log(data);
         const resultsList = document.getElementById('resultsList');
         resultsList.innerHTML = '';
 

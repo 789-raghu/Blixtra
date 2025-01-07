@@ -5,117 +5,227 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyScheme API Search</title>
     <link rel="stylesheet" href="/stylesheets/filters.css">
+    <link rel = "stylesheet" href = '/stylesheets/landingpage.css'>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body>
-<div class="form-container">
-    <form id="schemeForm">
-        <div class="form-group">
-            <label for="disabilityPercentage">Disability Percentage</label>
-            <select id="disabilityPercentage">
-                <option value="fghytrdfghj">N/A</option>
-                <% for(let i = 10; i <= 100; i += 10) { %>
-                    <option value="<%= i %>"><%= i %>%</option>
-                <% } %>
-            </select>
-        </div>
+<style>
 
-        <div class="form-group">
-            <label for="maritalStatus">Marital Status</label>
-            <select id="maritalStatus" name="maritalStatus">
-                <option value="">Select Marital Status</option>
-                <% const maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
-                <% maritalStatuses.forEach(status => { %>
-                    <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
-                <% }); %>
-            </select>
+</style>
+<body class = "bg-white dark:bg-gray-900">
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo"/>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="flex items-center space-x-4 font-medium flex-wrap">
+                <li>
+                    <a href="#about"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                        Features
+                    </a>
+                </li>
+                <li>
+                    <form class="max-w-sm">
+                        <select id="languages"
+                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
+                            <option value="en" class="translation">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="bn">Bengali</option>
+                            <option value="te">Telugu</option>
+                            <option value="mr">Marathi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="ur">Urdu</option>
+                            <option value="kn">Kannada</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="or">Odia</option>
+                            <option value="as">Assamese</option>
+                            <option value="sd">Sindhi</option>
+                            <option value="sa">Sanskrit</option>
+                            <option value="kok">Konkani</option>
+                        </select>
+                    </form>
+                </li>
+                <li>
+                    <a href="#"
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href='\login'>
+                        <button type="button"
+                                class="inline-flex items-center justify-center text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 transition ease-in-out duration-200"
+                                data-modal-target="login-modal" data-modal-toggle="login-modal">
+                            Login
+                        </button>
+                    </a>
+                </li>
+            </ul>
         </div>
-
-        <div class="form-group">
-            <label for="disability">Disability</label>
-            <select id="disability" name="disability">
-                <option value="Yes" selected>Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="caste">Caste</label>
-            <select id="caste">
-                <option value="">Select Caste</option>
-                <% const castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)',
-                    'Other Backward Class (OBC)', 'General',
-                    'Particularly Vulnerable Tribal Group (PVTG)']; %>
-                <% castes.forEach(caste => { %>
-                    <option value="<%= caste %>"><%= caste %></option>
-                <% }); %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" required>
-                <option value="">Select Gender</option>
-                <% const genders = ['All', 'Male', 'Female', 'Other']; %>
-                <% genders.forEach(gender => { %>
-                    <option value="<%= gender %>"><%= gender %></option>
-                <% }); %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="beneficiaryState">Beneficiary State</label>
-            <select id="beneficiaryState" name="beneficiaryState">
-                <option value="All">All</option>
-                <% states.forEach(state => { %>
-                    <option value="<%= state %>"><%= state %></option>
-                <% }); %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="occupation">Occupation</label>
-            <select id="occupation">
-                <option value="gnhm">Select Occupation</option>
-                <% occupations.forEach(occupation => { %>
-                    <option value="<%= occupation.value %>"><%= occupation.label %></option>
-                <% }); %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="age">Age</label>
-            <select id="age">
-                <option value="">Select Age Range</option>
-                <% for(let i = 0; i <= 100; i += 10) { %>
-                    <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
-                <% } %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="bpl">Below Poverty Line</label>
-            <select id="bpl">
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
-            </select>
-        </div>
-    </form>
-</div>
-
-<div id="detailModal" style="display:none;">
-    <div id="modalContent">
-        <span id="closeModal" style="cursor:pointer;">&times; Close</span>
-        <div id="modalBody"></div>
     </div>
-</div>
+</nav>
 
-<div class="results-container" id="results">
-    <h2>Search Results</h2>
-    <ul id="resultsList">
-        <!-- Results will be appended here -->
-    </ul>
-</div>
 
+<div class="w-screen flex justify-start px-6 pl-0 gap-6">
+    <!-- Sidebar Container -->
+    <aside class="w-1/4 h-auto bg-white p-6 shadow-sm">
+        <h2 class="text-lg font-bold text-gray-700 mb-4">Filter Options</h2>
+        <form id="schemeForm" class="space-y-6" style="background-color: inherit; border: none;box-shadow: none">
+            <div class="form-group">
+                <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability Percentage</label>
+                <select id="disabilityPercentage" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="fghytrdfghj">N/A</option>
+                    <% for(let i = 10; i <= 100; i += 10) { %>
+                        <option value="<%= i %>"><%= i %>%</option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="maritalStatus" class="block text-gray-700 font-medium mb-1">Marital Status</label>
+                <select id="maritalStatus" name="maritalStatus" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="">Select Marital Status</option>
+                    <% const maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                    <% maritalStatuses.forEach(status => { %>
+                        <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="disability" class="block text-gray-700 font-medium mb-1">Disability</label>
+                <select id="disability" name="disability" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 border-b-2">
+                    <option value="Yes" selected>Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="caste" class="block text-gray-700 font-medium mb-1">Caste</label>
+                <select id="caste" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="">Select Caste</option>
+                    <% const castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                    <% castes.forEach(caste => { %>
+                        <option value="<%= caste %>"><%= caste %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
+                <select id="gender" required class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="">Select Gender</option>
+                    <% const genders = ['All', 'Male', 'Female', 'Other']; %>
+                    <% genders.forEach(gender => { %>
+                        <option value="<%= gender %>"><%= gender %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="beneficiaryState" class="block text-gray-700 font-medium mb-1">Beneficiary State</label>
+                <select id="beneficiaryState" name="beneficiaryState" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="All">All</option>
+                    <% states.forEach(state => { %>
+                        <option value="<%= state %>"><%= state %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="occupation" class="block text-gray-700 font-medium mb-1">Occupation</label>
+                <select id="occupation" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="gnhm">Select Occupation</option>
+                    <% occupations.forEach(occupation => { %>
+                        <option value="<%= occupation.value %>"><%= occupation.label %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age" class="block text-gray-700 font-medium mb-1">Age</label>
+                <select id="age" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
+                    <option value="">Select Age Range</option>
+                    <% for(let i = 0; i <= 100; i += 10) { %>
+                        <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bpl" class="block text-gray-700 font-medium mb-1">Below Poverty Line</label>
+                <select id="bpl" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </form>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-auto">
+        <form class="w-full mx-auto">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
+                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            </div>
+        </form>
+
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px gap-24">
+                <li class="me-2">
+                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Profile</a>
+                </li>
+                <li class="me-2">
+                    <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Dashboard</a>
+                </li>
+                <li class="me-2">
+                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Settings</a>
+                </li>
+                <li class="me-2">
+                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Contacts</a>
+                </li>
+                <li>
+                    <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="w-full results-container h-full bg-gray-100" id="results" style="width: 500vh">
+            <h2 class="text-lg font-bold mb-4">Search Results</h2>
+            <ul id="resultsList" class="w-full">
+                <!-- Results will be appended here -->
+            </ul>
+        </div>
+    </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 <script src="/javascripts/search.js"></script>
 </body>
 </html>

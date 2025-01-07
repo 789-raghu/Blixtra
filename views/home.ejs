@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>
     <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
     <link href="/stylesheets/landingpage.css" rel = "stylesheet">
-    <script src="/javascripts/landingpage.js"></script>
     <style>
         * {
             margin: 0;
@@ -168,13 +167,13 @@
             <ul class="flex items-center space-x-4 font-medium flex-wrap">
                 <li>
                     <a href="#about"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent translation">
                         About
                     </a>
                 </li>
                 <li>
                     <a href="#features"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent translation">
                         Features
                     </a>
                 </li>
@@ -191,7 +190,7 @@
                 </li>
                 <li>
                     <a href="#contactus"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent translation">
                         Contact
                     </a>
                 </li>
@@ -207,16 +206,16 @@
                         </div>
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                             <li>
-                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white translation">Dashboard</a>
                             </li>
                             <li>
-                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer" type="button">
+                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer translation" type="button">
                                     Delete Account
                                 </a>
                             </li>
                         </ul>
                         <div class="py-1">
-                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white translation">Sign out</a>
                         </div>
                     </div>
                 </li>
@@ -232,26 +231,26 @@
         <div class="relative">
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white translation">
                     Static modal
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only translation">Close modal</span>
                 </button>
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center translation">
                     Do you want to delete the account?
                 </p>
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center gap-5">
                 <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 translation">Decline</button>
             </div>
         </div>
     </div>
@@ -267,7 +266,7 @@
     <!-- CTA Button -->
     <div class="text-center mb-8">
         <button type="button"
-                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-lg px-6 py-3 rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onclick="window.location.href = '/filters'">
+                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-lg px-6 py-3 rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 translation" onclick="window.location.href = '/filters'">
             Schemes for You
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor"
@@ -280,7 +279,7 @@
         <a href="#"
            class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">2910+</p>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Total schemes
+            <p class="font-normal text-gray-700 dark:text-gray-400 translation">Total schemes
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="inline-block w-5 h-5 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
@@ -291,7 +290,7 @@
         <a href="#"
            class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">520+</p>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Central schemes
+            <p class="font-normal text-gray-700 dark:text-gray-400 translation">Central schemes
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="inline-block w-5 h-5 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
@@ -302,7 +301,7 @@
         <a href="#"
            class="block w-full sm:w-64 md:w-72 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <p class="mb-2 text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">2370+</p>
-            <p class="font-normal text-gray-700 dark:text-gray-400">State schemes
+            <p class="font-normal text-gray-700 dark:text-gray-400 translation">State schemes
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="inline-block w-5 h-5 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
@@ -318,82 +317,82 @@
         <!-- Feature cards will be dynamically inserted here -->
         <div class="feature-card">
             <div class="feature-icon">💡</div>
-            <div class="feature-title">Personalized Scheme Recommendations</div>
-            <div class="feature-description">Get recommendations tailored to your unique needs based on your profile and
+            <div class="feature-title translation">Personalized Scheme Recommendations</div>
+            <div class="feature-description translation">Get recommendations tailored to your unique needs based on your profile and
                 eligibility.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🌐</div>
-            <div class="feature-title">Multilingual Support</div>
-            <div class="feature-description">Access the platform in your preferred language to better understand and
+            <div class="feature-title translation">Multilingual Support</div>
+            <div class="feature-description translation">Access the platform in your preferred language to better understand and
                 apply for schemes.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">📄</div>
-            <div class="feature-title">Easy Document Upload</div>
-            <div class="feature-description">Upload required documents quickly and securely to ensure smooth processing
+            <div class="feature-title translation">Easy Document Upload</div>
+            <div class="feature-description translation">Upload required documents quickly and securely to ensure smooth processing
                 of your application.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">📱</div>
-            <div class="feature-title">Real-time Updates</div>
-            <div class="feature-description">Receive real-time updates on the status of your applications, making it
+            <div class="feature-title translation">Real-time Updates</div>
+            <div class="feature-description translation">Receive real-time updates on the status of your applications, making it
                 easier to track progress.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🤖</div>
-            <div class="feature-title">Chatbot Assistance</div>
-            <div class="feature-description">Get instant help and guidance through our AI-powered chatbot, ready to
+            <div class="feature-title translation">Chatbot Assistance</div>
+            <div class="feature-description translation">Get instant help and guidance through our AI-powered chatbot, ready to
                 answer your questions anytime.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔍</div>
-            <div class="feature-title">Comprehensive Filters</div>
-            <div class="feature-description">Use a variety of filters to narrow down your search and find schemes that
+            <div class="feature-title translation">Comprehensive Filters</div>
+            <div class="feature-description translation">Use a variety of filters to narrow down your search and find schemes that
                 suit your needs best.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🖥️</div>
-            <div class="feature-title">User-Friendly Interface</div>
-            <div class="feature-description">Navigate the platform easily with a clean and intuitive interface designed
+            <div class="feature-title translation">User-Friendly Interface</div>
+            <div class="feature-description translation">Navigate the platform easily with a clean and intuitive interface designed
                 for a seamless user experience.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔒</div>
-            <div class="feature-title">Secure and Private</div>
-            <div class="feature-description">Your personal and application data is kept safe with strong encryption and
+            <div class="feature-title translation">Secure and Private</div>
+            <div class="feature-description translation">Your personal and application data is kept safe with strong encryption and
                 privacy policies.
             </div>
             <div class="feature-footer">
-                <a href="#" class="btn-learn-more">Learn More</a>
+                <a href="#" class="btn-learn-more translation">Learn More</a>
             </div>
         </div>
     </section>
@@ -433,7 +432,7 @@
                     ✖
                 </button>
             </div>
-            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3">
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3 translation">
                 <!-- Chat Messages -->
                 <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline">
                     Hi! How can I help you today?
@@ -458,6 +457,7 @@
         </div>
     </div>
 </section>
-
+<script src="/javascripts/landingpage.js"></script>
+<script src = "/javascripts/translation.js"></script>
 </body>
 </html>

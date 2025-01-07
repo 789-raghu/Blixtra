@@ -105,7 +105,7 @@ function createPaginationContainer() {
     const container = document.createElement('div');
     container.id = 'pagination';
     // Tailwind classes for styling
-    container.className = 'mt-5 flex gap-2 justify-center text-lg';
+    container.className = 'mt-5 flex gap-2 justify-center text-lg w-full';
     document.getElementById('resultsList').parentNode.appendChild(container);
     return container;
 }
