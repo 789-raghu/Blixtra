@@ -10,22 +10,26 @@ router.get('/', function (req, res) {
 router.post('/', async (req, res) => {
     try {
         const {
-            emailId,
+            name,
             password,
-            gender,
-            caste,
-            disability,
-            healthConditions,
-            economy,
+            aadhar,
+            pan,
+            ration,
             state,
-            city,
-            educationLevel,
-            isStudent,
-            isWidow,
+            gender,
+            age,
+            caste,
+            minority,
+            differentlyAbled,
+            maritalStatus,
+            disabilityPercentage,
+            bpl,
+            student,
+            occupation
         } = req.body;
         console.log(req.body);
         // Check if the email already exists
-        const existingUser = await userModel.findOne({ emailId });
+        const existingUser = await userModel.findOne({name: name});
         if (existingUser) {
             return res.status(400).json({ message: 'Email already registered.' });
         }
@@ -35,23 +39,31 @@ router.post('/', async (req, res) => {
 
         // Create new user object
         const newUser = new userModel({
-            emailId,
-            password: hashedPassword,
-            gender,
-            caste: caste || null,
-            disability: disability || false,
-            healthConditions: healthConditions || [],
-            economy,
+            name,
+            password: hashedPassword, // Store the hashed password
+            aadhar,
+            pan,
+            ration,
             state,
-            city,
-            educationLevel,
-            isStudent: isStudent || false,
-            isWidow: isWidow || false,
+            gender,
+            age,
+            caste,
+            minority,
+            differentlyAbled,
+            maritalStatus,
+            disabilityPercentage,
+            bpl,
+            student,
+            occupation
         });
 
-        // Save user to database
         await newUser.save();
-        res.status(201).json({ message: 'User registered successfully.' });
+        const user = await userModel.findOne({name:name});
+        req.session.user = {
+            id: user._id,
+            email: user.name,
+        };
+        res.redirect('/filters');
     } catch (error) {
         console.error('Error during signup:', error);
         res.status(500).json({ message: 'An error occurred during signup.' });

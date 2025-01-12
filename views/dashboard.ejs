@@ -4,164 +4,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Government Schemes Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.5.0/dist/flowbite.min.css" rel="stylesheet"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add Alpine.js for Flowbite functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </head>
 
-<body class="bg-green-50 text-gray-900 transition-colors duration-300">
-
-<div class="bg-green-200 p-4 flex justify-between items-center shadow-md rounded-lg">
-    <div class="text-green-800 text-2xl font-semibold">SchemeConnect</div>
-    <div class="flex items-center space-x-4">
-        <img src="<%= 'https://via.placeholder.com/40' %>" alt="Profile Picture" class="w-10 h-10 rounded-full">
-        <span class="text-green-800 font-medium">Welcome, <%=user%></span>
-        <button id="themeToggler" class="text-green-800 text-xl bg-transparent border-0 hover:text-green-500 transition duration-200">
-            🌙
+<body class="bg-gray-200 text-gray-900">
+<!-- Header -->
+<header class="bg-white shadow-md">
+    <div class="w-full mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Government Schemes Dashboard</h1>
+        <button id="themeToggler" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
+            🌙 Toggle Theme
         </button>
     </div>
-</div>
+</header>
 
-<!-- Container -->
-<div class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-8 space-y-8 sm:px-4 sm:mt-12">
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-12 gap-6">
+        <!-- Sidebar -->
+        <aside class="col-span-12 md:col-span-3 bg-white rounded-lg shadow-md p-4">
+            <div class="flex flex-col items-center">
+                <!-- Profile Picture -->
+                <img src="https://buffer.com/resources/content/images/2024/04/AI-image-generator--1-.jpg" alt="Profile Picture"
+                     class="w-24 h-24 rounded-full shadow-md">
+                <h2 class="mt-4 text-lg font-semibold text-gray-700">Rajeshwari Verma</h2>
+                <p class="text-gray-500">Scheme Administrator</p>
+                <!-- Add Talks Button -->
+                <button class="mt-4 flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Scheme
+                </button>
+                <button class="mt-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onclick="document.getElementById('updateProfileModal').style.display='block'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                    </svg>
+                    Update Profile
+                </button>
+            </div>
+            <nav class="mt-6 space-y-4">
+                <a href="#" class="block text-gray-700 font-medium px-4 py-2 rounded-lg hover:bg-gray-100">Overview</a>
+                <a href="#" class="block text-gray-700 font-medium px-4 py-2 rounded-lg hover:bg-gray-100">Beneficiary
+                    Analytics</a>
+                <a href="#" class="block text-gray-700 font-medium px-4 py-2 rounded-lg hover:bg-gray-100">Settings</a>
+                <a href="#" class="block text-gray-700 font-medium px-4 py-2 rounded-lg hover:bg-gray-100">Support</a>
+            </nav>
+        </aside>
 
-    <!-- Profile Details Section -->
-    <div id="profileSection">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Profile Details</h2>
-        <div class="space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="name" class="font-semibold text-gray-700 w-full sm:w-auto">Name:</label>
-                <input type="text" id="name" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="gender" class="font-semibold text-gray-700 w-full sm:w-auto">Gender:</label>
-                <input type="text" id="gender" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="dob" class="font-semibold text-gray-700 w-full sm:w-auto">DOB:</label>
-                <input type="date" id="dob" value="<%= %>" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="email" class="font-semibold text-gray-700 w-full sm:w-auto">Email:</label>
-                <input type="email" id="email" value="" disabled class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-        </div>
-        <div class="mt-6 flex space-x-4 justify-center sm:justify-start">
-            <button id="editBtn" class="px-6 py-2 bg-green-300 text-green-800 rounded-lg hover:bg-green-400 transition duration-200 transform hover:scale-105">Edit</button>
-        </div>
-    </div>
+        <!-- Main Content -->
+        <main class="col-span-12 md:col-span-9">
+            <!-- Carousel -->
+            <div id="signupCarousel" class="carousel slide shadow-lg rounded-lg overflow-hidden" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <!-- Step 1 -->
+                    <div class="carousel-item active">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 90vh; background: linear-gradient(to right, #f0f4f8, #d9eaf7);">
+                            <div class="text-center">
+                                <h3 class="text-blue-600 font-bold">Step 1: Personal Information</h3>
+                                <div class="mb-3">
+                                    <label for="name" class="text-gray-700 font-medium">Name:</label>
+                                    <input id="name" type="text" class="form-control border-blue-500" placeholder="Rajeshwari Verma" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="text-gray-700 font-medium">Password:</label>
+                                    <input id="password" type="password" class="form-control border-blue-500" placeholder="Password" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="aadhar" class="text-gray-700 font-medium">Aadhar Card Number:</label>
+                                    <input id="aadhar" type="text" class="form-control border-blue-500" placeholder="347891038487" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pan" class="text-gray-700 font-medium">PAN Card Number:</label>
+                                    <input id="pan" type="text" class="form-control border-blue-500" placeholder="21131A03294" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="carousel-item">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 90vh; background: linear-gradient(to right, #e3f2fd, #bbdefb);">
+                            <div class="text-center">
+                                <h3 class="text-blue-600 font-bold">Step 2: Additional Information</h3>
+                                <div class="mb-3">
+                                    <label for="ration" class="text-gray-700 font-medium">Ration Card Number:</label>
+                                    <input id="ration" type="text" class="form-control border-blue-500" placeholder="3SU9208239" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="state" class="text-gray-700 font-medium">State:</label>
+                                    <input id="state" type="text" class="form-control border-blue-500" placeholder="Maharashtra" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gender" class="text-gray-700 font-medium">Gender:</label>
+                                    <input id="gender" type="text" class="form-control border-blue-500" placeholder="Female" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="age" class="text-gray-700 font-medium">Age:</label>
+                                    <input id="age" type="number" class="form-control border-blue-500" placeholder="25" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Language Preference Section -->
-    <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Language Preference</h2>
-        <select class="px-4 py-2 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            <option value="en" <%= user.language === 'en' ? 'selected' : '' %>>English</option>
-            <option value="hi" <%= user.language === 'hi' ? 'selected' : '' %>>Hindi</option>
-            <option value="te" <%= user.language === 'te' ? 'selected' : '' %>>Telugu</option>
-            <option value="od" <%= user.language === 'od' ? 'selected' : '' %>>Odia</option>
-            <option value="bn" <%= user.language === 'bn' ? 'selected' : '' %>>Bengali</option>
-        </select>
-    </div>
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <button type="button" class="active" data-bs-target="#signupCarousel" data-bs-slide-to="0"></button>
+                    <button type="button" data-bs-target="#signupCarousel" data-bs-slide-to="1"></button>
+                </div>
+            </div>
 
-    <!-- Chatbot Section -->
-    <div>
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Chat with Us</h2>
-        <script src="https://app.chatbot.com/widget.js"></script>
-        <script>
-            new ChatBot({
-                organizationId: 'org12345',
-                template: 'default',
-                openOnLoad: false
-            });
-        </script>
-    </div>
-</div>
+            <!--    </div>-->
+            <!-- Scheme Table with Pagination -->
+            <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Scheme Data</h2>
+                <table class="min-w-full border-collapse border border-gray-300" id="schemeTable">
 
-<!-- Modal for editing profile -->
-<div id="editModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Edit Profile</h2>
-        <div class="space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editName" class="font-semibold text-gray-700 w-full sm:w-auto">Username:</label>
-                <input type="text" id="editUsername" value="<%= user.username %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+                        <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2 border border-gray-300 text-left">Scheme Name</th>
+                            <th class="px-4 py-2 border border-gray-300 text-left">Category</th>
+                            <th class="px-4 py-2 border border-gray-300 text-left">Beneficiaries</th>
+                            <th class="px-4 py-2 border border-gray-300 text-left">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Health for All</td>
+                            <td class="px-4 py-2 border border-gray-300">Healthcare</td>
+                            <td class="px-4 py-2 border border-gray-300">4,500</td>
+                            <td class="px-4 py-2 border border-gray-300 text-green-500">Active</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Education Aid</td>
+                            <td class="px-4 py-2 border border-gray-300">Education</td>
+                            <td class="px-4 py-2 border border-gray-300">6,800</td>
+                            <td class="px-4 py-2 border border-gray-300 text-red-500">Inactive</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Food Security</td>
+                            <td class="px-4 py-2 border border-gray-300">Food</td>
+                            <td class="px-4 py-2 border border-gray-300">12,000</td>
+                            <td class="px-4 py-2 border border-gray-300 text-green-500">Active</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Housing for All</td>
+                            <td class="px-4 py-2 border border-gray-300">Housing</td>
+                            <td class="px-4 py-2 border border-gray-300">8,200</td>
+                            <td class="px-4 py-2 border border-gray-300 text-red-500">Inactive</td>
+                        </tr>
+                        <!-- New Records -->
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Clean Water Project</td>
+                            <td class="px-4 py-2 border border-gray-300">Water</td>
+                            <td class="px-4 py-2 border border-gray-300">10,500</td>
+                            <td class="px-4 py-2 border border-gray-300 text-green-500">Active</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Digital Education Initiative</td>
+                            <td class="px-4 py-2 border border-gray-300">Technology</td>
+                            <td class="px-4 py-2 border border-gray-300">5,300</td>
+                            <td class="px-4 py-2 border border-gray-300 text-green-500">Active</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Women Empowerment Program</td>
+                            <td class="px-4 py-2 border border-gray-300">Social Welfare</td>
+                            <td class="px-4 py-2 border border-gray-300">2,700</td>
+                            <td class="px-4 py-2 border border-gray-300 text-red-500">Inactive</td>
+                        </tr>
+                        <tr class="scheme-row">
+                            <td class="px-4 py-2 border border-gray-300">Skill Development for Youth</td>
+                            <td class="px-4 py-2 border border-gray-300">Education</td>
+                            <td class="px-4 py-2 border border-gray-300">4,000</td>
+                            <td class="px-4 py-2 border border-gray-300 text-green-500">Active</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                <!-- Pagination Controls -->
+                <nav class="mt-4">
+                    <ul class="inline-flex items-center -space-x-px">
+                        <li>
+                            <button class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700" id="prevPage" onclick="changePage(-1)">Previous</button>
+                        </li>
+                        <li>
+                            <button class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700" id="nextPage" onclick="changePage(1)">Next</button>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editPassword" class="font-semibold text-gray-700 w-full sm:w-auto">Password:</label>
-                <input type="password" id="editPassword" value="<%= user.password %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
+        </main>
+        <div id="updateProfileModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Update Profile</h3>
+                    <form class="mt-4 text-left">
+                        <!-- Personal Information -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="updateName">Name</label>
+                            <input type="text" id="updateName" class="form-control" value="Rajeshwari Verma">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="updateAadhar">Aadhar Number</label>
+                            <input type="text" id="updateAadhar" class="form-control" value="347891038487">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="updatePan">PAN Number</label>
+                            <input type="text" id="updatePan" class="form-control" value="21131A03294">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="updateRation">Ration Card Number</label>
+                            <input type="text" id="updateRation" class="form-control" value="3SU9208239">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="updateState">State</label>
+                            <select id="updateState" class="form-control">
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="flex justify-end mt-6 gap-4">
+                            <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600" onclick="document.getElementById('updateProfileModal').style.display='none'">
+                                Cancel
+                            </button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editCaste" class="font-semibold text-gray-700 w-full sm:w-auto">Caste:</label>
-                <input type="text" id="editCaste" value="<%= user.caste %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editIncome" class="font-semibold text-gray-700 w-full sm:w-auto">Income:</label>
-                <input type="number" id="editIncome" value="<%= user.income %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editState" class="font-semibold text-gray-700 w-full sm:w-auto">State:</label>
-                <input type="text" id="editState" value="<%= user.state %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editGender" class="font-semibold text-gray-700 w-full sm:w-auto">Gender:</label>
-                <input type="text" id="editGender" value="<%= user.gender %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editEducation" class="font-semibold text-gray-700 w-full sm:w-auto">Education:</label>
-                <input type="text" id="editEducation" value="<%= user.education %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editOccupation" class="font-semibold text-gray-700 w-full sm:w-auto">Occupation:</label>
-                <input type="text" id="editOccupation" value="<%= user.occupation %>" class="px-4 py-2 w-full sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <label for="editBPL" class="font-semibold text-gray-700 w-full sm:w-auto">BPL:</label>
-                <input type="checkbox" id="editBPL" <%= user.bpl ? 'checked' : '' %> class="px-4 py-2 w-1/3 sm:w-2/3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-300 transition duration-300">
-            </div>
-        </div>
-        <div class="flex space-x-4 justify-center">
-            <button id="saveBtn" class="px-6 py-2 bg-green-300 text-green-800 rounded-lg hover:bg-green-400 transition duration-200 transform hover:scale-105">Save</button>
-            <button id="cancelBtn" class="px-6 py-2 bg-red-300 text-red-800 rounded-lg hover:bg-red-400 transition duration-200 transform hover:scale-105">Cancel</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Handle edit button click
-    document.getElementById('editBtn').addEventListener('click', () => {
-        document.getElementById('profileSection').classList.add('hidden');
-        document.getElementById('editModal').classList.remove('hidden');
+    // Theme toggle functionality
+    const themeToggler = document.getElementById('themeToggler');
+    themeToggler.addEventListener('click', () => {
+        document.body.classList.toggle('bg-gray-800');
+        document.body.classList.toggle('text-white');
     });
 
-    // Handle cancel button click in modal
-    document.getElementById('cancelBtn').addEventListener('click', () => {
-        document.getElementById('editModal').classList.add('hidden');
-        document.getElementById('profileSection').classList.remove('hidden');
-    });
+    // Pagination functionality
+    let currentPage = 1;
+    const rowsPerPage = 4; // Show 2 rows per page
+    const rows = document.querySelectorAll('#schemeTable .scheme-row');
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
 
-    // Handle save button click in modal (you can later add functionality to save the changes)
-    document.getElementById('saveBtn').addEventListener('click', () => {
-        // Here, you can make an API call to save the data or update the user object
-        // For now, just hide the modal and show the updated profile details
-        const updatedUsername = document.getElementById('editUsername').value;
-        const updatedPassword = document.getElementById('editPassword').value;
-        const updatedCaste = document.getElementById('editCaste').value;
-        const updatedIncome = document.getElementById('editIncome').value;
-        const updatedState = document.getElementById('editState').value;
-        const updatedGender = document.getElementById('editGender').value;
-        const updatedEducation = document.getElementById('editEducation').value;
-        const updatedOccupation = document.getElementById('editOccupation').value;
-        const updatedBPL = document.getElementById('editBPL').checked;
+    function updateTable() {
+        // Hide all rows
+        rows.forEach(row => row.style.display = 'none');
 
-        // Update the profile section with the new values
-        document.getElementById('name').value = updatedUsername;
-        document.getElementById('gender').value = updatedGender;
-        document.getElementById('dob').value = document.getElementById('editDob').value;
-        document.getElementById('email').value = document.getElementById('editEmail').value;
+        // Show rows for the current page
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
 
-        document.getElementById('editModal').classList.add('hidden');
-        document.getElementById('profileSection').classList.remove('hidden');
-    });
+        for (let i = start; i < end && i < totalRows; i++) {
+            rows[i].style.display = '';
+        }
+    }
+
+    function changePage(direction) {
+        currentPage += direction;
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        } else if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        updateTable();
+    }
+    window.onclick = function(event) {
+        const modal = document.getElementById('updateProfileModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Initialize table
+    updateTable();
 </script>
-
 </body>
+
 </html>

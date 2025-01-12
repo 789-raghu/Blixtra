@@ -1,79 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Responsive Navbar with Dynamic Translation</title>
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>
-    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
-    <link href="/stylesheets/landingpage.css" rel = "stylesheet">
-    <script src="/javascripts/landingpage.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyScheme API Search</title>
+    <link rel="stylesheet" href="/stylesheets/filters.css">
+    <link rel="stylesheet" href='/stylesheets/landingpage.css'>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        @media screen and (max-width:480px) {
+            aside{
+                display: none;
             }
-        }
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --background-color: #f3f4f6;
-            --text-color: #1f2937;
-            --border-color: #e5e7eb;
-        }
 
-        body {
-            background-color: var(--background-color);
-            min-height: 100vh;
         }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const profileButton = document.getElementById("avatarButton");
-            const profileDropdown = document.getElementById("userDropdown");
-            const closeProfile = document.getElementById("close-profile");
-            // Toggle profile dropdown visibility
-            profileButton.addEventListener("click", () => {
-                profileDropdown.classList.toggle("hidden");
-            });
-            // Close profile dropdown
-            closeProfile.addEventListener("click", () => {
-                profileDropdown.classList.add("hidden");
-            });
-
-        });
-
-        document.getElementById('avatarButton').addEventListener('click', () => {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('hidden');
-        });
-    </script>
-    <style>
-        #userDropdown {
-            z-index: 50;
-            position: absolute;
-            right: 0;
-        }
-        html {
-            scroll-behavior: smooth;
+        @media screen and (min-width: 480px) {
+            #filter{
+                display: none;
+            }
         }
     </style>
 </head>
-
-<body class="bg-gray-100 dark:bg-gray-900">
-<!-- Navbar -->
+<body class="bg-white dark:bg-gray-900">
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <!-- Logo -->
@@ -103,32 +53,45 @@
                             <option value="en">English</option>
                             <option value="hi">Hindi</option>
                             <option value="bn">Bengali</option>
-                            <!-- Add more languages here -->
+                            <option value="te">Telugu</option>
+                            <option value="mr">Marathi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="ur">Urdu</option>
+                            <option value="kn">Kannada</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="or">Odia</option>
+                            <option value="as">Assamese</option>
+                            <option value="sd">Sindhi</option>
+                            <option value="sa">Sanskrit</option>
+                            <option value="kok">Konkani</option><!-- Add more languages here -->
                         </select>
                     </form>
                 </li>
+
                 <!-- Profile Dropdown -->
-                <li class="relative">
+                <li class="relative z-50">
                     <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                          class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
                     <!-- Dropdown -->
                     <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>Bonnie Green</div>
-                            <div class="font-medium truncate">name@flowbite.com</div>
+                            <!--                            <div></div>-->
+                            <div class="font-medium truncate"><%=email%></div>
                         </div>
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                             <li>
-                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white translation">Dashboard</a>
                             </li>
                             <li>
-                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer" type="button">
+                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer translation" type="button">
                                     Delete Account
                                 </a>
                             </li>
                         </ul>
                         <div class="py-1">
-                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white translation">Sign out</a>
                         </div>
                     </div>
                 </li>
@@ -144,273 +107,340 @@
         <div class="relative">
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white translation">
                     Static modal
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only translation">Close modal</span>
                 </button>
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center translation">
                     Do you want to delete the account?
                 </p>
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center gap-5">
-                <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+                <form action="/login/logout" method="GET">
+                    <button type="submit" data-modal-hide="static-modal" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 translation">I accept</button>
+                </form>
+                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 translation">Decline</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Filter Container -->
-<div class="min-h-screen flex justify-start p-6 gap-6">
 
-    <!-- Left side filter container -->
-    <div class="w-full sm:w-1/3 lg:w-1/4 bg-white shadow-lg rounded-lg p-6 space-y-6">
-
-        <h2 class="text-2xl sm:text-3xl font-bold text-gray-700">Filter Options</h2>
-
-        <form id="filterForm">
-            <!-- Disability Percentage -->
+<div class="w-screen flex justify-start px-6 pl-0 gap-6">
+    <!-- Sidebar Container -->
+    <aside class="w-1/4 h-auto bg-white p-6 shadow-sm">
+        <h2 class="text-lg font-bold text-gray-700 mb-4">Filter Options</h2>
+        <form id="schemeForm" class="space-y-6" style="background-color: inherit; border: none;box-shadow: none">
             <div class="form-group">
-                <label for="disabilityPercentage" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Disability Percentage</label>
-                <select id="disabilityPercentage" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability
+                    Percentage</label>
+                <select id="disabilityPercentage"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="fghytrdfghj">N/A</option>
-                    <option value="10">10%</option>
-                    <option value="20">20%</option>
-                    <option value="30">30%</option>
-                    <option value="40">40%</option>
-                    <option value="50">50%</option>
-                    <option value="60">60%</option>
-                    <option value="70">70%</option>
-                    <option value="80">80%</option>
-                    <option value="90">90%</option>
-                    <option value="100">100%</option>
+                    <% for(let i = 10; i <= 100; i += 10) { %>
+                        <option value="<%= i %>"><%= i %>%</option>
+                    <% } %>
                 </select>
             </div>
 
-            <!-- Marital Status -->
             <div class="form-group">
-                <label for="maritalStatus" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Marital Status</label>
-                <select id="maritalStatus" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="maritalStatus" class="block text-gray-700 font-medium mb-1">Marital Status</label>
+                <select id="maritalStatus" name="maritalStatus"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Marital Status</option>
-                    <option value="All">All</option>
-                    <option value="Widowed">Widowed</option>
-                    <option value="Married">Married</option>
-                    <option value="Never Married">Never Married</option>
-                    <option value="Divorced">Divorced</option>
-                    <option value="Separated">Separated</option>
+                    <% let maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                    <% maritalStatuses.forEach(status => { %>
+                        <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- Disability -->
             <div class="form-group">
-                <label for="disability" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Disability</label>
-                <select id="disability" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="Yes" selected>Yes</option>
+                <label for="disability" class="block text-gray-700 font-medium mb-1">Disability</label>
+                <select id="disability" name="disability"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="enc" selected>Select</option>
+                    <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
 
-            <!-- Caste -->
             <div class="form-group">
-                <label for="caste" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Caste</label>
-                <select id="caste" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="caste" class="block text-gray-700 font-medium mb-1">Caste</label>
+                <select id="caste"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Caste</option>
-                    <option value="All">All</option>
-                    <option value="Scheduled Caste (SC)">Scheduled Caste (SC)</option>
-                    <option value="Scheduled Tribe (ST)">Scheduled Tribe (ST)</option>
-                    <option value="Other Backward Class (OBC)">Other Backward Class (OBC)</option>
-                    <option value="General">General</option>
-                    <option value="Particularly Vulnerable Tribal Group (PVTG)">PVTG</option>
+                    <% let castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                    <% castes.forEach(caste => { %>
+                        <option value="<%= caste %>"><%= caste %></option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- Gender -->
             <div class="form-group">
-                <label for="gender" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Gender</label>
-                <select id="gender" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
+                <select id="gender" required
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Gender</option>
-                    <option value="All">All</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <% let genders = ['All', 'Male', 'Female', 'Transgender']; %>
+                    <% genders.forEach(gender => { %>
+                        <option value="<%= gender %>"><%= gender %></option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- State -->
             <div class="form-group">
-                <label for="state" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">State</label>
-                <select id="state" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">Select State</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
+                <label for="beneficiaryState" class="block text-gray-700 font-medium mb-1">Beneficiary State</label>
+                <select id="beneficiaryState" name="beneficiaryState"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="All" selected>All</option>
+                    <% states.forEach(state => { %>
+                        <option value="<%= state %>"><%= state %></option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- Occupation -->
             <div class="form-group">
-                <label for="occupation" class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Occupation</label>
-                <select id="occupation" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="occupation" class="block text-gray-700 font-medium mb-1">Occupation</label>
+                <select id="occupation"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="gnhm">Select Occupation</option>
-                    <option value="Not Listed here">Not Listed here</option>
-                    <option value="Construction Worker">Construction Worker</option>
-                    <option value="Unorganized Worker">Unorganized Worker</option>
-                    <option value="Ex Servicemen">Ex Servicemen</option>
-                    <option value="Student">Student</option>
-                    <option value="Artists">Artists</option>
-                    <option value="Safai Karamchari">Safai Karamchari</option>
-                    <option value="Sportsperson">Sportsperson</option>
-                    <option value="Coir Worker">Coir Worker</option>
-                    <option value="Teacher / Faculty">Teacher / Faculty</option>
+                    <% occupations.forEach(occupation => { %>
+                        <option value="<%= occupation.value %>"><%= occupation.label %></option>
+                    <% }); %>
                 </select>
             </div>
 
-            <!-- Submit Button -->
-            <div class="mt-4">
-                <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
-                    Apply Filters
-                </button>
+            <div class="form-group">
+                <label for="age" class="block text-gray-700 font-medium mb-1">Age</label>
+                <select id="age"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
+                    <option value="">Select Age Range</option>
+                    <% for(let i = 0; i <= 100; i += 10) { %>
+                        <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="bpl" class="block text-gray-700 font-medium mb-1">Below Poverty Line</label>
+                <select id="bpl"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="enc" selected>Select</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
             </div>
         </form>
-    </div>
-    <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-        <ul class="flex flex-wrap -mb-px space-x-4">
-            <li class="flex-1">
-                <a href="#profile" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="profile-tab">
-                    Profile
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#dashboard" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 transition-all duration-300" id="dashboard-tab" aria-current="page">
-                    Dashboard
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#settings" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="settings-tab">
-                    Settings
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#contacts" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 transition-all duration-300" id="contacts-tab">
-                    Contacts
-                </a>
-            </li>
-        </ul>
-    </div>
+    </aside>
 
-    <!-- Tab Content with Form -->
-    <div id="tabs-content" class="mt-4">
-        <!-- Profile Tab Content with Form -->
-        <div id="profile-content" class="tab-content hidden">
-            <h2 class="text-xl font-semibold mb-4">Profile Information</h2>
-            <form action="#" method="POST">
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Full Name</label>
-                    <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your full name">
+    <!-- Main Content -->
+    <main class="flex-1 h-auto w-12">
+        <form class="w-5/6 mx-auto">
+            <div class="flex items-center">
+                <!-- Search Bar -->
+                <div class="relative flex-grow">
+                    <label for="default-search"
+                           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                           class="block w-full p-4 ps-12 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Search Mockups, Logos..." required/>
                 </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your email">
+
+
+                <!-- drawer init and toggle -->
+                <div class="text-center">
+                    <button class="text-white  hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 bg-green-500 inline-block p-3 cursor-pointer ms-4 shadow-md" id="filter" type="button" data-drawer-target="drawer-example" data-drawer-show="drawer-example" aria-controls="drawer-example">
+                        <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="mb-4">
-                    <label for="phone" class="block text-gray-700">Phone</label>
-                    <input type="text" id="phone" name="phone" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter your phone number">
+
+                <!-- drawer component -->
+                <div id="drawer-example" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label">
+                    <form id="schemeForm" class="space-y-6" style="background-color: inherit; border: none;box-shadow: none">
+                        <div class="form-group">
+                            <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability
+                                Percentage</label>
+                            <select id="disabilityPercentage"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="fghytrdfghj">N/A</option>
+                                <% for(let i = 10; i <= 100; i += 10) { %>
+                                    <option value="<%= i %>"><%= i %>%</option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maritalStatus" class="block text-gray-700 font-medium mb-1">Marital Status</label>
+                            <select id="maritalStatus" name="maritalStatus"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Marital Status</option>
+                                <% maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                                <% maritalStatuses.forEach(status => { %>
+                                    <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="disability" class="block text-gray-700 font-medium mb-1">Disability</label>
+                            <select id="disability" name="disability"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="enc" selected>Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="caste" class="block text-gray-700 font-medium mb-1">Caste</label>
+                            <select id="caste"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Caste</option>
+                                <% castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                                <% castes.forEach(caste => { %>
+                                    <option value="<%= caste %>"><%= caste %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
+                            <select id="gender" required
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Gender</option>
+                                <% genders = ['All', 'Male', 'Female', 'Transgender']; %>
+                                <% genders.forEach(gender => { %>
+                                    <option value="<%= gender %>"><%= gender %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beneficiaryState" class="block text-gray-700 font-medium mb-1">Beneficiary State</label>
+                            <select id="beneficiaryState" name="beneficiaryState"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="All" selected>All</option>
+                                <% states.forEach(state => { %>
+                                    <option value="<%= state %>"><%= state %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="occupation" class="block text-gray-700 font-medium mb-1">Occupation</label>
+                            <select id="occupation"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="gnhm">Select Occupation</option>
+                                <% occupations.forEach(occupation => { %>
+                                    <option value="<%= occupation.value %>"><%= occupation.label %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age" class="block text-gray-700 font-medium mb-1">Age</label>
+                            <select id="age"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
+                                <option value="">Select Age Range</option>
+                                <% for(let i = 0; i <= 100; i += 10) { %>
+                                    <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bpl" class="block text-gray-700 font-medium mb-1">Below Poverty Line</label>
+                            <select id="bpl"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="enc" selected>Select</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Submit</button>
-            </form>
+
+                <!-- Icon -->
+
+            </div>
+        </form>
+
+        <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <!-- Tab Navigation -->
+            <ul class="flex flex-wrap -mb-px gap-10">
+                <li class="me-2">
+                    <a href="#profile" class="tab-link inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500 active" aria-current="page">Total Schemes</a>
+                </li>
+                <li class="me-2">
+                    <a href="#dashboard" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">State schemes</a>
+                </li>
+                <li class="me-2">
+                    <a href="#settings" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Suggested schemes</a>
+                </li>
+            </ul>
         </div>
 
-        <!-- Dashboard Tab Content with Form -->
+        <!-- Tab Content -->
+        <div class="tab-content mt-4">
+            <div id="profile" class="tab-pane" style="display: block;">
+                <div class="w-full results-container bg-gray-100 flex flex-col mx-auto" id="results">
+                    <ul id="resultsList" class="w-full flex-grow">
+                        <!-- Results will be appended here -->
+                    </ul>
+                </div>
+            </div>
 
-        <!-- Settings Tab Content with Form -->
-        <div id="settings-content" class="tab-content hidden">
-            <h2 class="text-xl font-semibold mb-4">Settings</h2>
-            <form action="#" method="POST">
-                <div class="mb-4">
-                    <label for="theme" class="block text-gray-700">Select Theme</label>
-                    <select id="theme" name="theme" class="w-full p-2 border border-gray-300 rounded-lg">
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                    </select>
+            <div id="dashboard" class="tab-pane" style="display: none;">
+                <div class="w-full results-container bg-gray-100 flex flex-col mx-auto gap-6" id="results">
+                    <ul id="stateresultsList" class="w-full flex-grow">
+                        <!-- Results will be appended here -->
+                    </ul>
                 </div>
-                <div class="mb-4">
-                    <label for="language" class="block text-gray-700">Select Language</label>
-                    <select id="language" name="language" class="w-full p-2 border border-gray-300 rounded-lg">
-                        <option value="english">English</option>
-                        <option value="spanish">Spanish</option>
-                        <option value="french">French</option>
-                    </select>
+            </div>
+
+            <div id="settings" class="tab-pane" style="display: none;">
+                <div class="w-full results-container bg-gray-100 flex flex-col mx-auto gap-6" id="results">
+                    <ul id="SuggestedList" class="w-full flex-grow">
+                        <!-- Results will be appended here -->
+                    </ul>
                 </div>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Settings</button>
-            </form>
+            </div>
         </div>
 
-        <!-- Contacts Tab Content with Form -->
-        <div id="contacts-content" class="tab-content hidden">
-            <h2 class="text-xl font-semibold mb-4">Contacts</h2>
-            <form action="#" method="POST">
-                <div class="mb-4">
-                    <label for="contact-name" class="block text-gray-700">Contact Name</label>
-                    <input type="text" id="contact-name" name="contact-name" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact name">
-                </div>
-                <div class="mb-4">
-                    <label for="contact-email" class="block text-gray-700">Contact Email</label>
-                    <input type="email" id="contact-email" name="contact-email" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact email">
-                </div>
-                <div class="mb-4">
-                    <label for="contact-phone" class="block text-gray-700">Contact Phone</label>
-                    <input type="text" id="contact-phone" name="contact-phone" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter contact phone number">
-                </div>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Add Contact</button>
-            </form>
+
+        <div id="contacts" class="tab-pane hidden">
+                <h2 class="text-2xl font-semibold">Contacts Content</h2>
+                <p>This is the contacts section.</p>
+            </div>
         </div>
-    </div>
+    </main>
 </div>
-
-
 
 <section>
     <div class="fixed bottom-4 right-4 z-50">
-        <!-- Chatbot Button -->
         <button id="chatbot-button"
                 class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
             💬
         </button>
-        <!-- Chatbot Popup -->
         <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
             <div class="flex justify-between items-center">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chatbot</h2>
@@ -419,7 +449,7 @@
                     ✖
                 </button>
             </div>
-            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3">
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3 translation">
                 <!-- Chat Messages -->
                 <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline">
                     Hi! How can I help you today?
@@ -445,5 +475,71 @@
     </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<script src="/javascripts/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-pane');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetContentId = link.getAttribute('href').substring(1);
+
+                // Hide all content and remove active class from all tabs
+                tabContents.forEach(content => content.classList.add('hidden'));
+                tabLinks.forEach(tab => {
+                    tab.classList.remove('text-blue-600', 'border-blue-600');
+                    tab.classList.add('text-gray-600', 'border-transparent');
+                });
+
+                // Show the selected tab's content and add active class to the clicked tab
+                document.getElementById(targetContentId).classList.remove('hidden');
+                link.classList.add('text-blue-600', 'border-blue-600');
+                link.classList.remove('text-gray-600', 'border-transparent');
+            });
+        });
+    });
+    const filterButton = document.getElementById("filter");
+    const offcanvas = document.getElementById("offcanvas");
+    const closeOffcanvas = document.getElementById("closeOffcanvas");
+
+    // Show offcanvas
+    filterButton.addEventListener("click", () => {
+        offcanvas.classList.remove("right-[-100%]");
+        offcanvas.classList.add("right-0");
+    });
+
+    // Close offcanvas
+    closeOffcanvas.addEventListener("click", () => {
+        offcanvas.classList.remove("right-0");
+        offcanvas.classList.add("right-[-100%]");
+    });
+
+</script>
+<link href="/stylesheets/landingpage.css" rel = "stylesheet">
+<script src = "/javascripts/translation.js"></script>
+<script src = "/javascripts/landingpage.js"></script>
+<script>
+    const tabs = document.querySelectorAll('.tab-link');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (event) => {
+            // Remove the 'active' class and hide all tab content
+            tabs.forEach(t => t.classList.remove('active', 'text-blue-600', 'border-blue-600'));
+            tabPanes.forEach(pane => pane.style.display = 'none');
+
+            // Add the 'active' class to the clicked tab
+            event.target.classList.add('active', 'text-blue-600', 'border-blue-600');
+
+            // Show the corresponding tab content
+            const targetPane = document.querySelector(event.target.getAttribute('href'));
+            targetPane.style.display = 'block';
+        });
+    });
+
+</script>
 </body>
 </html>

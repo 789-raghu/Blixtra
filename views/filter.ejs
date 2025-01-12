@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyScheme API Search</title>
     <link rel="stylesheet" href="/stylesheets/filters.css">
-    <link rel = "stylesheet" href = '/stylesheets/landingpage.css'>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
+    
+    <style>
+        @media screen and (max-width:480px) {
+            aside{
+                display: none;
+            }
+        }
+        @media screen and (min-width: 480px) {
+            #filter{
+                display: none;
+            }
+        }
+    </style>
 </head>
-<style>
 
-</style>
-<body class = "bg-white dark:bg-gray-900">
+
+<body class="bg-white dark:bg-gray-900">
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -29,23 +41,11 @@
             </svg>
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="flex items-center space-x-4 font-medium flex-wrap">
-                <li>
-                    <a href="#about"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
-                        About
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent transition">
-                        Features
-                    </a>
-                </li>
+            <ul class="flex items-center space-x-4 font-medium flex-wrap bg-white">
                 <li>
                     <form class="max-w-sm">
                         <select id="languages"
-                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
+                                class="bg-white text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer border-none">
                             <option value="en" class="translation">English</option>
                             <option value="hi">Hindi</option>
                             <option value="bn">Bengali</option>
@@ -66,15 +66,9 @@
                     </form>
                 </li>
                 <li>
-                    <a href="#"
-                       class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                        Contact
-                    </a>
-                </li>
-                <li>
                     <a href='\login'>
                         <button type="button"
-                                class="inline-flex items-center justify-center text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 transition ease-in-out duration-200"
+                                class="inline-flex items-center justify-center text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800 transition ease-in-out duration-200 translation"
                                 data-modal-target="login-modal" data-modal-toggle="login-modal">
                             Login
                         </button>
@@ -92,8 +86,10 @@
         <h2 class="text-lg font-bold text-gray-700 mb-4">Filter Options</h2>
         <form id="schemeForm" class="space-y-6" style="background-color: inherit; border: none;box-shadow: none">
             <div class="form-group">
-                <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability Percentage</label>
-                <select id="disabilityPercentage" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability
+                    Percentage</label>
+                <select id="disabilityPercentage"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="fghytrdfghj">N/A</option>
                     <% for(let i = 10; i <= 100; i += 10) { %>
                         <option value="<%= i %>"><%= i %>%</option>
@@ -103,9 +99,10 @@
 
             <div class="form-group">
                 <label for="maritalStatus" class="block text-gray-700 font-medium mb-1">Marital Status</label>
-                <select id="maritalStatus" name="maritalStatus" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <select id="maritalStatus" name="maritalStatus"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Marital Status</option>
-                    <% const maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                    <% let maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
                     <% maritalStatuses.forEach(status => { %>
                         <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
                     <% }); %>
@@ -114,17 +111,20 @@
 
             <div class="form-group">
                 <label for="disability" class="block text-gray-700 font-medium mb-1">Disability</label>
-                <select id="disability" name="disability" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 border-b-2">
-                    <option value="Yes" selected>Yes</option>
+                <select id="disability" name="disability"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="enc" selected>Select</option>
+                    <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="caste" class="block text-gray-700 font-medium mb-1">Caste</label>
-                <select id="caste" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <select id="caste"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Caste</option>
-                    <% const castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                    <% let castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
                     <% castes.forEach(caste => { %>
                         <option value="<%= caste %>"><%= caste %></option>
                     <% }); %>
@@ -133,9 +133,10 @@
 
             <div class="form-group">
                 <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
-                <select id="gender" required class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <select id="gender" required
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="">Select Gender</option>
-                    <% const genders = ['All', 'Male', 'Female', 'Other']; %>
+                    <% let genders = ['All', 'Male', 'Female', 'Transgender']; %>
                     <% genders.forEach(gender => { %>
                         <option value="<%= gender %>"><%= gender %></option>
                     <% }); %>
@@ -144,8 +145,9 @@
 
             <div class="form-group">
                 <label for="beneficiaryState" class="block text-gray-700 font-medium mb-1">Beneficiary State</label>
-                <select id="beneficiaryState" name="beneficiaryState" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
-                    <option value="All">All</option>
+                <select id="beneficiaryState" name="beneficiaryState"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="All" selected>All</option>
                     <% states.forEach(state => { %>
                         <option value="<%= state %>"><%= state %></option>
                     <% }); %>
@@ -154,7 +156,8 @@
 
             <div class="form-group">
                 <label for="occupation" class="block text-gray-700 font-medium mb-1">Occupation</label>
-                <select id="occupation" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <select id="occupation"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
                     <option value="gnhm">Select Occupation</option>
                     <% occupations.forEach(occupation => { %>
                         <option value="<%= occupation.value %>"><%= occupation.label %></option>
@@ -164,7 +167,8 @@
 
             <div class="form-group">
                 <label for="age" class="block text-gray-700 font-medium mb-1">Age</label>
-                <select id="age" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
+                <select id="age"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
                     <option value="">Select Age Range</option>
                     <% for(let i = 0; i <= 100; i += 10) { %>
                         <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
@@ -174,7 +178,9 @@
 
             <div class="form-group">
                 <label for="bpl" class="block text-gray-700 font-medium mb-1">Below Poverty Line</label>
-                <select id="bpl" class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                <select id="bpl"
+                        class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                    <option value="enc" selected>Select</option>
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>
                 </select>
@@ -183,49 +189,279 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 h-auto">
-        <form class="w-full mx-auto">
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
+    <main class="flex-1 h-auto w-12">
+        <form class="w-5/6 mx-auto">
+            <div class="flex items-center">
+                <!-- Search Bar -->
+                <div class="relative flex-grow">
+                    <label for="default-search"
+                           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                           class="block w-full p-4 ps-12 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           placeholder="Search Mockups, Logos..." required/>
                 </div>
-                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
-                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+
+
+                <!-- drawer init and toggle -->
+                <div class="text-center">
+                    <button class="text-white  hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 bg-green-500 inline-block p-3 cursor-pointer ms-4 shadow-md" id="filter" type="button" data-drawer-target="drawer-example" data-drawer-show="drawer-example" aria-controls="drawer-example">
+                            <svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5.05 3C3.291 3 2.352 5.024 3.51 6.317l5.422 6.059v4.874c0 .472.227.917.613 1.2l3.069 2.25c1.01.742 2.454.036 2.454-1.2v-7.124l5.422-6.059C21.647 5.024 20.708 3 18.95 3H5.05Z"/>
+                            </svg>
+                    </button>
+                </div>
+
+                <!-- drawer component -->
+                <div id="drawer-example" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label">
+                    <form id="schemeForm" class="space-y-6" style="background-color: inherit; border: none;box-shadow: none">
+                        <div class="form-group">
+                            <label for="disabilityPercentage" class="block text-gray-700 font-medium mb-1">Disability
+                                Percentage</label>
+                            <select id="disabilityPercentage"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="fghytrdfghj">N/A</option>
+                                <% for(let i = 10; i <= 100; i += 10) { %>
+                                    <option value="<%= i %>"><%= i %>%</option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maritalStatus" class="block text-gray-700 font-medium mb-1">Marital Status</label>
+                            <select id="maritalStatus" name="maritalStatus"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Marital Status</option>
+                                <% maritalStatuses = ['All', 'Widowed', 'Married', 'Never Married', 'Divorced', 'Separated']; %>
+                                <% maritalStatuses.forEach(status => { %>
+                                    <option value="<%= status.replace(' ', '%20') %>"><%= status %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="disability" class="block text-gray-700 font-medium mb-1">Disability</label>
+                            <select id="disability" name="disability"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="enc" selected>Select</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="caste" class="block text-gray-700 font-medium mb-1">Caste</label>
+                            <select id="caste"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Caste</option>
+                                <% castes = ['All', 'Scheduled Caste (SC)', 'Scheduled Tribe (ST)', 'Other Backward Class (OBC)', 'General', 'Particularly Vulnerable Tribal Group (PVTG)']; %>
+                                <% castes.forEach(caste => { %>
+                                    <option value="<%= caste %>"><%= caste %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="block text-gray-700 font-medium mb-1">Gender</label>
+                            <select id="gender" required
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="">Select Gender</option>
+                                <% genders = ['All', 'Male', 'Female', 'Transgender']; %>
+                                <% genders.forEach(gender => { %>
+                                    <option value="<%= gender %>"><%= gender %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beneficiaryState" class="block text-gray-700 font-medium mb-1">Beneficiary State</label>
+                            <select id="beneficiaryState" name="beneficiaryState"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="All" selected>All</option>
+                                <% states.forEach(state => { %>
+                                    <option value="<%= state %>"><%= state %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="occupation" class="block text-gray-700 font-medium mb-1">Occupation</label>
+                            <select id="occupation"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="gnhm">Select Occupation</option>
+                                <% occupations.forEach(occupation => { %>
+                                    <option value="<%= occupation.value %>"><%= occupation.label %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age" class="block text-gray-700 font-medium mb-1">Age</label>
+                            <select id="age"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2 text-md">
+                                <option value="">Select Age Range</option>
+                                <% for(let i = 0; i <= 100; i += 10) { %>
+                                    <option value="<%= i %>-<%= i + 10 %>"><%= i %>-<%= i + 10 %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bpl" class="block text-gray-700 font-medium mb-1">Below Poverty Line</label>
+                            <select id="bpl"
+                                    class="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 border-b-2">
+                                <option value="enc" selected>Select</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Icon -->
+
             </div>
         </form>
 
         <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-            <ul class="flex flex-wrap -mb-px gap-24">
+            <!-- Tab Navigation -->
+            <ul class="flex flex-wrap -mb-px gap-24 sm:gap-0.5">
                 <li class="me-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Profile</a>
-                </li>
-                <li class="me-2">
-                    <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Dashboard</a>
+                    <a href="#profile" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Total Schemes</a>
                 </li>
                 <li class="me-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Settings</a>
+                    <a href="#dashboard" class="tab-link inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">State schemes</a>
                 </li>
-                <li class="me-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Contacts</a>
-                </li>
-                <li>
-                    <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-                </li>
+<!--                <li class="me-2">-->
+<!--                    <a href="#settings" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Settings</a>-->
+<!--                </li>-->
+<!--                <li class="me-2">-->
+<!--                    <a href="#contacts" class="tab-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Contacts</a>-->
+<!--                </li>-->
             </ul>
         </div>
+        <!-- Tab Content -->
+        <div class="tab-content mt-4">
+            <div id="profile" class="tab-pane hidden">
+                <div class="w-full results-container bg-gray-100 flex flex-col mx-auto" id="results">
+                    <ul id="resultsList" class="w-full flex-grow">
+                        <!-- Results will be appended here -->
+                    </ul>
+                </div>
+            </div>
 
-        <div class="w-full results-container h-full bg-gray-100" id="results" style="width: 500vh">
-            <h2 class="text-lg font-bold mb-4">Search Results</h2>
-            <ul id="resultsList" class="w-full">
-                <!-- Results will be appended here -->
-            </ul>
+            <div id="dashboard" class="tab-pane">
+                <div class="w-full results-container bg-gray-100 flex flex-col mx-auto gap-6" id="results">
+                    <ul id="stateresultsList" class="w-full flex-grow">
+                        <!-- Results will be appended here -->
+                    </ul>
+                </div>
+            </div>
+
+            <div id="settings" class="tab-pane hidden">
+                <h2 class="text-2xl font-semibold">Settings Content</h2>
+                <p>This is the settings section.</p>
+            </div>
+
+            <div id="contacts" class="tab-pane hidden">
+                <h2 class="text-2xl font-semibold">Contacts Content</h2>
+                <p>This is the contacts section.</p>
+            </div>
         </div>
     </main>
 </div>
+
+<section>
+    <div class="fixed bottom-4 right-4 z-50">
+        <button id="chatbot-button"
+                class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            💬
+        </button>
+        <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chatbot</h2>
+                <button id="close-chatbot"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                    ✖
+                </button>
+            </div>
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3 translation">
+                <!-- Chat Messages -->
+                <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline">
+                    Hi! How can I help you today?
+                </div>
+            </div>
+            <form id="chatbot-form" class="flex mt-4">
+                <input type="text" id="chatbot-input" placeholder="Type a message..."
+                       class="w-full px-4 py-2 text-sm border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Send
+                </button>
+            </form>
+            <footer class="bg-gray-500 rounded-lg shadow mt-4 dark:bg-gray-800">
+                <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="text-sm text-white">
+                        Powered by <a href="#" class="hover:underline text-blue-300">Blixtra AI</a>
+                        <br>© 2025. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 <script src="/javascripts/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-pane');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetContentId = link.getAttribute('href').substring(1);
+
+                // Hide all content and remove active class from all tabs
+                tabContents.forEach(content => content.classList.add('hidden'));
+                tabLinks.forEach(tab => {
+                    tab.classList.remove('text-blue-600', 'border-blue-600');
+                    tab.classList.add('text-gray-600', 'border-transparent');
+                });
+
+                // Show the selected tab's content and add active class to the clicked tab
+                document.getElementById(targetContentId).classList.remove('hidden');
+                link.classList.add('text-blue-600', 'border-blue-600');
+                link.classList.remove('text-gray-600', 'border-transparent');
+            });
+        });
+    });
+        const filterButton = document.getElementById("filter");
+        const offcanvas = document.getElementById("offcanvas");
+        const closeOffcanvas = document.getElementById("closeOffcanvas");
+
+        // Show offcanvas
+        filterButton.addEventListener("click", () => {
+        offcanvas.classList.remove("right-[-100%]");
+        offcanvas.classList.add("right-0");
+    });
+
+        // Close offcanvas
+        closeOffcanvas.addEventListener("click", () => {
+        offcanvas.classList.remove("right-0");
+        offcanvas.classList.add("right-[-100%]");
+    });
+
+</script>
+<link href="/stylesheets/landingpage.css" rel = "stylesheet">
+<script src = "/javascripts/translation.js"></script>
+<script src = "/javascripts/landingpage.js"></script>
 </body>
 </html>

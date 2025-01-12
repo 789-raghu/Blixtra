@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "self-end",
                 "text-right",
                 "inline-block",
-                "my-1"
+                "my-1",
+                'text-right'
             );
             userBubble.textContent = userMessage;
             chatbotMessages.appendChild(userBubble);
@@ -44,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const response = await fetch('/chat', { // POST request to /chat
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ message: userMessage }) // Send the message in JSON body
+                    body: JSON.stringify({ message: userMessage }), // Send the message in JSON body
                 });
 
                 if (!response.ok) {
@@ -59,35 +60,55 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Append bot message
                 const botBubble = document.createElement("div");
                 botBubble.classList.add(
-                    "bg-blue-100",
-                    "p-2",
-                    "rounded-lg",
-                    "text-sm",
-                    "text-gray-700",
-                    "inline-block",
-                    "my-1"
+                    "bg-blue-100",       // Light blue background for bot messages
+                    "p-3",              // Padding for the bubble
+                    "rounded-lg",       // Rounded corners
+                    "text-sm",          // Small text size
+                    "text-gray-800",    // Slightly darker gray text
+                    "inline-block",     // Display inline block for alignment
+                    "my-2",             // Margin on top and bottom
+                    "max-w-xs",
+                    "text-left"// Restrict max width for the bubble
                 );
+
+                // Add bot message text
                 botBubble.textContent = botMessage;
-                chatbotMessages.appendChild(botBubble);
+
+                // Add flex container for alignment
+                const botContainer = document.createElement("div");
+                botContainer.classList.add("flex", "justify-start", "items-start", "my-1");
+                botContainer.appendChild(botBubble);
+
+                // Append bot message to the chat container
+                chatbotMessages.appendChild(botContainer);
 
                 // Scroll to the bottom after bot response
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
             } catch (error) {
-                console.error("Error communicating with server:", error);
+                console.error("Error fetching bot response:", error);
+
+                // Show error message
                 const errorBubble = document.createElement("div");
                 errorBubble.classList.add(
-                    "bg-red-100",
-                    "p-2",
-                    "rounded-lg",
-                    "text-sm",
-                    "text-red-700",
-                    "inline-block",
-                    "my-1"
+                    "bg-red-100",       // Light red background for error messages
+                    "p-3",              // Padding for the bubble
+                    "rounded-lg",       // Rounded corners
+                    "text-sm",          // Small text size
+                    "text-red-800",     // Dark red text for errors
+                    "inline-block",     // Display inline block for alignment
+                    "my-2",             // Margin on top and bottom
+                    "max-w-xs"          // Restrict max width for the bubble
                 );
-                errorBubble.textContent = "Error: Unable to connect to the server.";
-                chatbotMessages.appendChild(errorBubble);
 
-                // Scroll to the bottom after error message
+                errorBubble.textContent = "An error occurred. Please try again later.";
+
+                const errorContainer = document.createElement("div");
+                errorContainer.classList.add("flex", "justify-start", "items-start", "my-1");
+                errorContainer.appendChild(errorBubble);
+
+                chatbotMessages.appendChild(errorContainer);
+
+                // Scroll to the bottom after error response
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
             }
 

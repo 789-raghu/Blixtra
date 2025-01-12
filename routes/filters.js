@@ -47,6 +47,7 @@ router.post('/api/search', async (req, res) => {
         disabilityPercentage,
         bpl,
         occupation
+        //,keyword //SSP(k)
     } = req.body;
 
     const pageSize = 100; // For pagination
@@ -60,6 +61,8 @@ router.post('/api/search', async (req, res) => {
     if (disabilityPercentage) queryParams.push({ identifier: "disabilityPercentage", value: disabilityPercentage });
     if (bpl) queryParams.push({ identifier: "isBpl", value: bpl });
     if (occupation) queryParams.push({ identifier: "occupation", value: occupation });
+   // if(keyword)queryParams.push({identifier:"keyword",value:keyword});//SSP
+   //else queryParams.push({identifier:"keyword",value:""});//SSP
 
     const queryParamsString = JSON.stringify(queryParams);
     const baseUrl = "https://api.myscheme.gov.in/search/v4/schemes";
@@ -110,7 +113,8 @@ router.post('/api/search', async (req, res) => {
 
 router.get('/', async (req, res) => {
     if (req.session && req.session.user) {
-        res.render('filters',{title:'filters'});
+        res.render('filters',{title:'filters',states: states,
+            occupations: occupations,email:req.session.user.email});
     }
     else{
         res.render('filter', {

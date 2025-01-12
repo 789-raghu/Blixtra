@@ -144,7 +144,7 @@ async function performSearch() {
     } catch (error) {
         console.error("Error fetching schemes:", error);
         document.getElementById('resultsList').innerHTML =
-            '<li class="error">Failed to fetch results. Please try again later.</li>';
+             '<li class="error">Failed to fetch results. Please try again later.</li>';
     }
 }
 

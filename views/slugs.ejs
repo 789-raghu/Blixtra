@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class = "scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slug</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/google-translate-open-api"></script>
+    <script src="https://cdn.statically.io/gh/vidya-hub/open-google-translator/main/dist/bundle.js"></script>
+    <link href="/stylesheets/landingpage.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        *{
+            line-height: 1.6;
+        }
+
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .accordion__item {
+            border: 1px solid #e5f3fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .accordion__header {
+            padding: 20px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            /*position: relative;*/
+        }
+
+
+        .accordion__header.active {
+            background: #e5f3fa;
+        }
+
+
+        .accordion__content {
+            padding: 0 10px;
+            max-height: 5px;
+            transition: max-height 0.5s ease-in-out;
+            overflow: hidden;
+            background: #fff;
+        }
+    </style>
+
+
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+<!-- Navbar -->
+<nav class="bg-white shadow border-b border-gray-300 sticky top-0">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-gray-800 translation">MyBlixtra</span>
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+            <span class="sr-only">Open menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto scroll-smooth" id="navbar-default">
+            <ul class="flex items-center space-x-4 font-medium flex-wrap">
+                <li>
+                    <form class="max-w-sm">
+                        <select id="languages"
+                                class="bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-white dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
+                            <option value="en" class="translation">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="bn">Bengali</option>
+                            <option value="te">Telugu</option>
+                            <option value="mr">Marathi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="ur">Urdu</option>
+                            <option value="kn">Kannada</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="or">Odia</option>
+                            <option value="as">Assamese</option>
+                            <option value="sd">Sindhi</option>
+                            <option value="sa">Sanskrit</option>
+                            <option value="kok">Konkani</option>
+                        </select>
+                    </form>
+                </li>
+                <li class="relative z-50">
+                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                         class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
+                    <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div class="font-medium truncate"><%=email%></div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                            <li>
+                                <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white translation">Dashboard</a>
+                            </li>
+                            <li>
+                                <a data-modal-target="static-modal" data-modal-toggle="static-modal" class="block px-4 py-2 hover:bg-red-400 dark:hover:bg-gray-600 cursor-pointer translation" type="button">
+                                    Delete Account
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="/login/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white translation">Sign out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="flex min-h-screen">
+    <!-- Left Sidebar -->
+    <div class="w-max bg-white-800 text-gray flex flex-col space-y-6 p-4 bg-white">
+        <h2 class="text-xl font-bold">Index</h2>
+        <ul class="space-y-3">
+            <li><a href="#details" class="block p-2 rounded hover:bg-gray-300 translation">Details</a></li>
+            <li><a href="#benefits" class="block p-2 rounded hover:bg-gray-300 translation">Benefits</a></li>
+            <li><a href="#eligibility" class="block p-2 rounded hover:bg-gray-300 translation">Eligibility</a></li>
+            <li><a href="#application-process" class="block p-2 rounded hover:bg-gray-300 translation">Application Process</a></li>
+            <li><a href="#documents-required" class="block p-2 rounded hover:bg-gray-300 translation">Documents Required</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 bg-white p-6 space-y-8 w-80">
+        <section id="details">
+            <h2 class="text-2xl font-semibold text-blue-950 pb-5">Details</h2>
+            <p class = "font text-sm sm:text-sm text-[#24262B] dark:text-Black space-x-1 text-justify"><%-details%></p>
+        </section>
+        <section id="benefits">
+            <h3 class="text-2xl font-semibold text-blue-950 pb-5">Benefits</h3>
+            <%-benefits%>
+        </section>
+        <section id="eligibility">
+            <h3 class="text-2xl font-semibold text-blue-950 pb-5">Eligibility</h3>
+            <%-eligibility%>
+        </section>
+        <section id="application-process">
+            <h3 class="text-2xl font-semibold text-blue-950 pb-5">Application Process</h3>
+            <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px" id="tabs-container">
+                    <li class="me-2" id = 'online'>
+                        <a href="#online" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page" data-tab="online">
+                            online
+                        </a>
+                    </li>
+                    <li class="me-2" id = 'offline'>
+                        <a href="#offline" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tab="offline">
+                            offline
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="content-container">
+                <div id="online-content" class="tab-content p-4 hidden">
+                    <%-onlineApplication%>
+                </div>
+                <div id="offline-content" class="tab-content p-4 hidden">
+                    <h3 class="text-lg font-semibold">Offline Content</h3>
+                    <%-offlineApplication%>
+                </div>
+            </div>
+
+        </section>
+        <section id="documents-required">
+            <h3 class="text-2xl font-semibold text-blue-950 pb-5">Documents Required</h3>
+            <%-documents%>
+        </section>
+
+        <section id="faqs" class="p-4 bg-gray-100 rounded-md">
+            <div class="accordion">
+                <% faqs.forEach((faq, index) => { %>
+                    <div class="accordion__item">
+                        <div
+                                class="accordion__header"
+                                data-toggle="#faq-answer-<%= index %>"
+                        >
+                            <%= faq.question %>
+                        </div>
+                        <div
+                                class="accordion__content"
+                                id="faq-answer-<%= index %>"
+                        >
+                            <%- faq.answer %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+
+        <section>
+            <%-Guidelines%>
+        </section>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="w-1/6 bg-white p-4 flex flex-col space-y-4">
+        <h2 class="text-lg font-bold">Share</h2>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Share on Facebook
+        </button>
+        <button class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500">
+            Share on Twitter
+        </button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+            Share on LinkedIn
+        </button>
+    </div>
+</div>
+<section>
+    <div class="fixed bottom-4 right-4 z-50">
+        <button id="chatbot-button"
+                class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            💬
+        </button>
+        <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 translation">Chatbot</h2>
+                <button id="close-chatbot"
+                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                    ✖
+                </button>
+            </div>
+            <div id="chatbot-messages" class="h-48 overflow-y-auto mt-4 space-y-3">
+                <div class="bg-blue-100 p-2 rounded-lg text-sm text-gray-700 inline translation">
+                    Hi! How can I help you today?
+                </div>
+            </div>
+            <form id="chatbot-form" class="flex mt-4">
+                <input type="text" id="chatbot-input" placeholder="Type a message..."
+                       class="w-full px-4 py-2 text-sm border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 translation">
+                    Send
+                </button>
+            </form>
+            <footer class="bg-gray-500 rounded-lg shadow mt-4 dark:bg-gray-800">
+                <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="text-sm text-white translation">
+                        Powered by <a href="#" class="hover:underline text-blue-300 translation">MyBlixtra AI</a>
+                        <br>© 2025. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+<script src="/javascripts/landingpage.js"></script>
+<script src = "/javascripts/translation.js"></script>
+<script>
+    function handleTabSwitch() {
+        const tabs = document.querySelectorAll('#tabs-container a');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Remove 'active' class from all tabs and hide all tab contents
+                tabs.forEach(tab => tab.classList.remove('text-blue-600', 'border-blue-600', 'active', 'dark:text-blue-500', 'dark:border-blue-500'));
+                tabContents.forEach(content => content.classList.add('hidden'));
+
+                // Add 'active' class to the clicked tab and display the corresponding content
+                this.classList.add('text-blue-600', 'border-blue-600', 'active', 'dark:text-blue-500', 'dark:border-blue-500');
+                const targetTab = this.getAttribute('data-tab');
+                document.getElementById(`${targetTab}-content`).classList.remove('hidden');
+
+                // Optionally, change the aria-current attribute for accessibility
+                tabs.forEach(tab => tab.removeAttribute('aria-current'));
+                this.setAttribute('aria-current', 'page');
+            });
+        });
+    }
+
+    // Initialize the tab switch functionality when the page is loaded
+    document.addEventListener('DOMContentLoaded', handleTabSwitch);
+
+    function checkContent() {
+        const onlineContent = document.getElementById('online-content').innerHTML.trim();
+        const offlineContent = document.getElementById('offline-content').innerHTML.trim();
+
+        // Getting the content containers and tab labels
+        const onlineContentContainer = document.getElementById('online-content-container');
+        const offlineContentContainer = document.getElementById('offline-content-container');
+        const onlineTag = document.getElementById('online');
+        const offlineTag = document.getElementById('offline');
+
+        // Check for online content
+        if (onlineContent === "") {
+            onlineContentContainer.classList.add('hidden');
+            onlineTag.classList.add('hidden'); // Hide the online tab if no content
+        } else {
+            onlineContentContainer.classList.remove('hidden');
+            onlineTag.style.display = none;
+        }
+        if (offlineContent === "") {
+            offlineContentContainer.classList.add('hidden');
+            offlineTag.classList.add('hidden');
+        } else {
+            offlineContentContainer.classList.remove('hidden');
+            offlineTag.classList.remove('hidden');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', checkContent);
+    document.addEventListener('DOMContentLoaded', () => {
+        const togglers = document.querySelectorAll('.accordion__header');
+
+        togglers.forEach((header) => {
+            header.addEventListener('click', (e) => {
+                const contentId = e.currentTarget.dataset.toggle;
+                const contentBlock = document.querySelector(contentId);
+
+                if (e.currentTarget.classList.contains('active')) {
+                    contentBlock.style.maxHeight = '';
+                } else {
+                    contentBlock.style.maxHeight = contentBlock.scrollHeight + 'px';
+                }
+
+                e.currentTarget.classList.toggle('active');
+            });
+        });
+    });
+
+</script>
+<script src="/javascripts/landingpage.js"></script>
+<script src = "/javascripts/translation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>

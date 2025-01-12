@@ -184,7 +184,19 @@
                             <option value="en">English</option>
                             <option value="hi">Hindi</option>
                             <option value="bn">Bengali</option>
-                            <!-- Add more languages here -->
+                            <option value="te">Telugu</option>
+                            <option value="mr">Marathi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="ur">Urdu</option>
+                            <option value="kn">Kannada</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="or">Odia</option>
+                            <option value="as">Assamese</option>
+                            <option value="sd">Sindhi</option>
+                            <option value="sa">Sanskrit</option>
+                            <option value="kok">Konkani</option><!-- Add more languages here -->
                         </select>
                     </form>
                 </li>
@@ -194,14 +206,11 @@
                         Contact
                     </a>
                 </li>
-                <!-- Profile Dropdown -->
                 <li class="relative z-50">
                     <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                          class="w-10 h-10 rounded-full cursor-pointer" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
-                    <!-- Dropdown -->
                     <div id="userDropdown" class="hidden absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                         <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-<!--                            <div></div>-->
                             <div class="font-medium truncate"><%=email%></div>
                         </div>
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
@@ -241,29 +250,25 @@
                     <span class="sr-only translation">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
                 <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-center translation">
                     Do you want to delete the account?
                 </p>
             </div>
-            <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-center gap-5">
-                <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-hide="static-modal" type="button" class="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-b xl:rounded-t text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 translation">I accept</button>
                 <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-b xl:rounded-t border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 translation">Decline</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Headline -->
 <section id="about">
     <div class="md:container md:mx-auto text-center py-12">
         <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 dark:text-white translation">
             Empower Your Journey: Blixtra - Your One-Stop Solution for All Schemes!
         </h1>
     </div>
-    <!-- CTA Button -->
     <div class="text-center mb-8">
         <button type="button"
                 class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-lg px-6 py-3 rounded-lg dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 translation" onclick="window.location.href = '/filters'">
@@ -312,7 +317,7 @@
 </section>
 
 <section id='features'>
-    <center><p class="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center">Features</p></center>
+    <center><p class="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center translation">Features</p></center>
     <section class="features-container" id="features-container">
         <!-- Feature cards will be dynamically inserted here -->
         <div class="feature-card">
@@ -399,31 +404,29 @@
 </section>
 
 <section id="contactus" class="bg-gray-100 p-8 rounded-lg shadow-lg dark:bg-gray-800">
-    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white text-center mb-6">Contact Us</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white text-center mb-6 translation">Contact Us</h2>
     <form action="#" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-gray-700">
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Your Name</label>
+            <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-medium translation">Your Name</label>
             <input type="text" id="name" name="name" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your name" required />
         </div>
         <div class="mb-4">
-            <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email Address</label>
+            <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium translation">Email Address</label>
             <input type="email" id="email" name="email" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your email" required />
         </div>
         <div class="mb-4">
-            <label for="message" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Your Message</label>
+            <label for="message" class="block text-gray-700 dark:text-gray-300 text-sm font-medium translation">Your Message</label>
             <textarea id="message" name="message" rows="4" class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500" placeholder="Enter your message" required></textarea>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">Submit</button>
+        <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 translation translation">Submit</button>
     </form>
 </section>
 <section>
     <div class="fixed bottom-4 right-4 z-50">
-        <!-- Chatbot Button -->
         <button id="chatbot-button"
                 class="w-12 h-12 bg-blue-600 rounded-full shadow-lg flex items-center justify-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
             💬
         </button>
-        <!-- Chatbot Popup -->
         <div id="chatbot-popup" class="hidden w-80 bg-white shadow-lg rounded-lg p-4 dark:bg-gray-800">
             <div class="flex justify-between items-center">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Chatbot</h2>
@@ -459,5 +462,6 @@
 </section>
 <script src="/javascripts/landingpage.js"></script>
 <script src = "/javascripts/translation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>

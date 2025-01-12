@@ -11,67 +11,85 @@ mongoose.connect(MongoUrl)
     });
 
 const UserSchema = new mongoose.Schema({
-    emailId: {
+    name: {
         type: String,
-        // required: true,
-        unique: true,
+        required: true,
+        minlength: 1,
     },
     password: {
         type: String,
-        // required: true,
+        required: true,
+        minlength: 8, // You can apply more validation for password criteria
     },
-    gender: {
+    aadhar: {
         type: String,
-        enum: ['Male', 'Female', 'Other'],
-        // required: true,
+        required: true,
+        length: 12, // 12-digit Aadhaar number
     },
-    caste: {
+    pan: {
         type: String,
-        default: null,
+        required: true,
+        match: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, // Match PAN Card format: XXXXX1234X
     },
-    disability: {
-        type: Boolean,
-        default: false,
-    },
-    healthConditions: {
-        type: [String], // List of health conditions
-        default: [],
-    },
-    economy: {
+    ration: {
         type: String,
-        enum: ['Below Poverty Line', 'Above Poverty Line'],
-        // required: true,
+        required: true,
+        length: 10, // 10-digit Ration Card number
     },
     state: {
         type: String,
-        // required: true,
+        required: true,
     },
-    city: {
+    gender: {
         type: String,
-        // required: true,
+        required: true,
+        enum: ['Male', 'Female', 'Other'],
     },
-    educationLevel: {
+    age: {
+        type: Number,
+        required: true,
+        min: 18, // Minimum age 18 for validation
+    },
+    caste: {
         type: String,
-        // required: true,
+        required: true,
     },
-    isStudent: {
-        type: Boolean,
-        default: false,
+    minority: {
+        type: String,
+        required: true,
+        enum: ['Yes', 'No'],
     },
-    isWidow: {
-        type: Boolean,
-        default: false,
+    differentlyAbled: {
+        type: String,
+        required: true,
+        enum: ['Yes', 'No'],
     },
-    schemesList: {
-        type: [String],
-        default: [],
+    maritalStatus: {
+        type: String,
+        required: true,
+        enum: ['Single', 'Married', 'Divorced'],
     },
-    markedForReviewSchemes: {
-        type: [String],
-        default: [],
+    disabilityPercentage: {
+        type: Number,
+        required: false,
+        min: 0, // Disability percentage
+        max: 100, // Max disability percentage
     },
-});
-
-const userModel = mongoose.model('user',UserSchema);
+    bpl: {
+        type: String,
+        required: true,
+        enum: ['Yes', 'No'],
+    },
+    student: {
+        type: String,
+        required: true,
+        enum: ['Yes', 'No'],
+    },
+    occupation: {
+        type: String,
+        required: true,
+    }
+}, {timestamps: true});
+const userModel = mongoose.model('user', UserSchema);
 
 module.exports = userModel;

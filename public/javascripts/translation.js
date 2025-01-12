@@ -64,14 +64,18 @@ document.getElementById("languages").addEventListener("change", async (event) =>
     try {
         const fromLanguage = currentLanguage;
         console.log(`Selected Language: ${targetLanguage}`);
+        if(targetLanguage === "en") {
+            window.location.reload();
+            return;
+        }
         const translatedData = await openGoogleTranslator.TranslateLanguageData({
             listOfWordsToTranslate: contentArray,
-            fromLanguage: fromLanguage,
             toLanguage: targetLanguage,
         });
         elementsToTranslate.forEach((element, index) => {
             const {translation} = translatedData[index];
             element.textContent = translation; // Update the text content
+            console.log(element.textContent);
         });
         document.documentElement.lang = targetLanguage;
         currentLanguage = targetLanguage;

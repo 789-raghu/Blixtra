@@ -10,34 +10,26 @@ router.get('/', function (req, res, next) {
     res.render('login', { title: 'Login', message: '' });
 });
 
-
-// POST login
 router.post('/', async function (req, res, next) {
     const { email, password } = req.body;
 
     try {
-        // Find user by emailId
-        const user = await usermodel.findOne({ emailId: email });
+        const user = await usermodel.findOne({ name: email });
 
         if (!user) {
             return res.render('login', { message: "Invalid email or password" });
         }
 
-        // Compare provided password with the hashed password in the database
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
             return res.render('login', { message: "Invalid email or password" });
         }
-
-        // Store user info in session
         req.session.user = {
             id: user._id,
-            email: user.emailId,
+            email: user.name,
         };
-
-        // After successful login, render the dashboard
-        return res.redirect('/dashboard');
+        return res.redirect('/filters');
 
     } catch (error) {
         console.error('Error during login:', error);
@@ -45,15 +37,13 @@ router.post('/', async function (req, res, next) {
     }
 });
 
-
-// GET logout
 router.get('/logout', function (req, res, next) {
     req.session.destroy((err) => {
         if (err) {
             console.error('Error destroying session:', err);
             return res.status(500).send('Error during logout');
         }
-        res.redirect('/'); // Redirect to login or landing page
+        res.redirect('/');
     });
 });
 

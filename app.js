@@ -10,6 +10,7 @@ const chatRouter = require('./routes/chatbot');
 const filterRouter = require('./routes/filters');
 const dashboardRouter = require('./routes/dashboard');
 const searchRouter = require('./routes/search');
+const { router: slugRouter } = require('./routes/slug');
 const app = express();
 
 const session = require('express-session');
@@ -38,6 +39,7 @@ app.use('/chat', chatRouter);
 app.use('/filters',filterRouter);
 app.use('/dashboard',dashboardRouter);
 app.use('/api',searchRouter);
+app.use('/slug',slugRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
