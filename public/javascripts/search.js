@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     };
 
-    // Attach event listeners to filter inputs
+    // Add event listeners to filter inputs
     document.getElementById('maritalStatus').addEventListener('change', handleFilterChange);
     document.getElementById('disability').addEventListener('change', handleFilterChange);
     document.getElementById('caste').addEventListener('change', handleFilterChange);
